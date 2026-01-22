@@ -161,7 +161,7 @@
         <div class="flex justify-between items-center mb-10">
             <button onclick="downloadPDF(event)" class="inline-flex items-center gap-3 px-6 py-3 bg-gold-primary/20 border border-gold-primary/40 rounded-full text-[11px] font-bold text-gold-light uppercase tracking-[0.25em] hover:bg-gold-primary hover:text-emerald-950 transition-all shadow-xl active:scale-95 group">
                 <svg class="w-5 h-5 group-hover:bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                Exporter en A5
+                Exporter le Menu PDF
             </button>
             <div class="flex gap-5">
                  <a href="https://www.instagram.com/greycornerfes" target="_blank" class="text-gold-primary hover:text-gold-vibrant hover:scale-125 transition-all active:opacity-70">
@@ -299,22 +299,39 @@
     <div id="pdf-export-container" style="display:none; width: 148mm; padding: 0; background-color: #001a14; color: white; font-family: 'Playfair Display', serif;">
         <div style="background-color: #001a14; position: relative;">
             <!-- Thumbnail Header -->
-            <div style="height: 50mm; width: 100%; overflow: hidden; position: relative;">
+            <div style="height: 55mm; width: 100%; overflow: hidden; position: relative;">
                 <img id="pdf-hero-thumb" src="images/ramadan1.jpg" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
                 <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(transparent, #001a14);"></div>
-                <div style="position: absolute; bottom: 5mm; left: 50%; transform: translateX(-50%); text-align: center; width: 100%;">
-                    <img src="images/LOGO GC.png" style="width: 20mm; height: 20mm; object-fit: contain; background: #001a14; border-radius: 50%; padding: 2mm; border: 1px solid #d4af37;">
+                <div style="position: absolute; bottom: 8mm; left: 50%; transform: translateX(-50%); text-align: center; width: 100%;">
+                    <div style="display:inline-block; border-radius: 50%; border: 1.5px solid #d4af37; padding: 1.5mm; background: #001a14;">
+                        <img src="images/LOGO GC.png" style="width: 20mm; height: 20mm; object-fit: contain;">
+                    </div>
                 </div>
             </div>
 
             <div style="padding: 10mm; text-align: center;">
-                <h1 style="font-size: 26pt; color: #d4af37; margin: 0; letter-spacing: 4px; font-family: 'Amiri', serif;">رمضان كريم</h1>
-                <h2 style="font-size: 18pt; color: white; margin: 2mm 0; letter-spacing: 2px;">IFTAR RAMADAN</h2>
-                <div id="pdf-dynamic-content" style="font-family: 'Montserrat', sans-serif; margin-top: 5mm;"></div>
+                <!-- Correction Arabe: Amiri Font + dir="rtl" + proper handling -->
+                <div style="margin-bottom: 4mm;">
+                    <span dir="rtl" style="font-family: 'Amiri', serif; font-size: 32pt; color: #d4af37; display: block; line-height: 1.2;">رمضان كريم</span>
+                </div>
+                <h2 style="font-size: 16pt; color: white; margin: 0 0 4mm 0; letter-spacing: 5px; font-weight: 300;">MENU IFTAR</h2>
                 
-                <div style="margin-top: 8mm; padding-top: 5mm; border-top: 1px solid rgba(212, 175, 55, 0.3); font-size: 9pt; color: #d4af37;">
-                    <p style="margin: 0;">Fès • 0535 940 168 • 0661 446 680</p>
-                    <p style="margin: 2mm 0 0; opacity: 0.6; font-size: 7pt;">www.instagram.com/greycornerfes</p>
+                <div id="pdf-dynamic-content" style="font-family: 'Montserrat', sans-serif;"></div>
+                
+                <!-- Footer PDF -->
+                <div style="margin-top: 10mm; padding-top: 6mm; border-top: 1.5px solid rgba(212, 175, 55, 0.3); font-size: 9pt; color: #d4af37;">
+                    <div style="display: flex; justify-content: space-around; margin-bottom: 4mm;">
+                        <div>
+                           <p style="margin: 0; font-weight: bold; letter-spacing: 1px;">RÉSERVATIONS</p>
+                           <p style="margin: 1mm 0 0; color: white; font-size: 10pt;">0535 940 168</p>
+                           <p style="margin: 0.5mm 0 0; color: white; font-size: 10pt;">0661 446 680</p>
+                        </div>
+                        <div>
+                           <p style="margin: 0; font-weight: bold; letter-spacing: 1px;">INSTAGRAM</p>
+                           <p style="margin: 1mm 0 0; color: white; font-size: 10pt;">@greycornerfes</p>
+                        </div>
+                    </div>
+                    <p style="margin: 6mm 0 0; opacity: 0.5; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 2px;">Grey Corner • Quartier Industriel, Fès</p>
                 </div>
             </div>
         </div>
@@ -418,7 +435,7 @@
                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg> Génération...
+                </svg> Préparation...
             `;
             btn.disabled = true;
 
@@ -427,54 +444,73 @@
             
             const formula = menuData.formulas[currentId];
             let html = `
-                <div style="margin: 3mm 0 6mm; border: 1.5px solid #d4af37; padding: 4mm; border-radius: 6mm; background: rgba(1, 60, 45, 0.4);">
-                    <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 8pt; color: #d4af37; margin: 0 0 1mm 0; font-weight: 700;">FORMULE IFTAR</p>
-                    <h3 style="color: #ffffff; font-size: 16pt; margin: 0; letter-spacing: 1px;">${formula.name}</h3>
-                    <p style="font-size: 18pt; margin: 2mm 0 0; font-weight: bold; color: #f9e29b;">${formula.price}</p>
+                <div style="margin: 0 0 8mm; border: 2px solid #d4af37; padding: 5mm; border-radius: 8mm; background: rgba(212, 175, 55, 0.08); position: relative;">
+                    <p style="text-transform: uppercase; letter-spacing: 4px; font-size: 8pt; color: #f9e29b; margin: 0 0 2mm 0; font-weight: 700;">FORMULE SÉLECTIONNÉE</p>
+                    <h3 style="color: #ffffff; font-size: 18pt; margin: 0; letter-spacing: 1px; font-family: 'Playfair Display', serif;">${formula.name}</h3>
+                    <div style="position: absolute; bottom: 5mm; right: 5mm; background: #d4af37; color: #001a14; padding: 2mm 4mm; border-radius: 4mm; font-weight: bold; font-size: 14pt;">${formula.price}</div>
                 </div>
             `;
             
+            // Sections communes
             [...menuData.common, formula.main].forEach(sec => {
                 html += `
-                    <div style="margin-bottom: 5mm; text-align: left; page-break-inside: avoid;">
-                        <h4 style="color: #d4af37; border-bottom: 0.8px solid rgba(212, 175, 55, 0.4); font-size: 10pt; padding-bottom: 1.5mm; margin-bottom: 2mm; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">
-                            <span style="display:inline-block; width: 2mm; height: 2mm; background: #d4af37; border-radius: 50%; margin-right: 2mm;"></span>
+                    <div style="margin-bottom: 6mm; text-align: left; page-break-inside: avoid;">
+                        <h4 style="color: #d4af37; border-bottom: 1.5px solid rgba(212, 175, 55, 0.4); font-size: 10pt; padding-bottom: 2mm; margin-bottom: 3mm; text-transform: uppercase; letter-spacing: 2.5px; font-weight: 700;">
+                            <span style="display:inline-block; width: 2.5mm; height: 2.5mm; background: #ffcc33; border-radius: 50%; margin-right: 3mm; box-shadow: 0 0 5px #ffcc33;"></span>
                             ${sec.title}
                         </h4>
                         ${sec.items.map(i => `
-                            <div style="margin-bottom: 1.5mm;">
-                                <p style="font-size: 9.5pt; margin: 0; color: #ffffff; font-weight: 600;">• ${i.name}</p>
-                                ${i.desc ? `<p style="font-size: 7.5pt; margin: 0.5mm 0 0 3.5mm; color: #a1c9c2; font-style: italic; opacity: 0.8;">${i.desc}</p>` : ''}
+                            <div style="margin-bottom: 2.5mm; padding-left: 2mm;">
+                                <p style="font-size: 10.5pt; margin: 0; color: #ffffff; font-weight: 600;">${i.name}</p>
+                                ${i.desc ? `<p style="font-size: 8.5pt; margin: 1mm 0 0 0; color: #a1c9c2; font-style: italic; opacity: 0.9;">${i.desc}</p>` : ''}
                             </div>
                         `).join('')}
                     </div>
                 `;
             });
 
+            // Ajout Section À LA CARTE avec PRIX (Nouveauté demandée)
+            html += `
+                <div style="margin: 10mm 0 6mm; page-break-inside: avoid;">
+                    <h4 style="color: #ffffff; background: rgba(212,175,55,0.2); font-size: 11pt; padding: 3mm; margin-bottom: 4mm; text-transform: uppercase; letter-spacing: 4px; font-weight: 700; text-align: center; border: 1px solid #d4af37;">
+                        DÉLICES À LA CARTE
+                    </h4>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 2mm;">
+                        ${menuData.alacarte.map(i => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5mm 0; border-bottom: 0.5px solid rgba(255,255,255,0.1);">
+                                <span style="font-size: 9.5pt; color: #f3f4f6;">${i.name}</span>
+                                <span style="font-size: 10pt; color: #d4af37; font-weight: bold; font-family: 'Montserrat', sans-serif;">${i.price}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
             dynamicContent.innerHTML = html;
             pdfContainer.style.display = 'block';
 
             const opt = {
-                margin: 0,
-                filename: `Menu-Iftar-GreyCorner-${currentId}.pdf`,
+                margin: [0, 0],
+                filename: `Grey-Corner-Menu-Ramadan-${formula.name}.pdf`,
                 image: { type: 'jpeg', quality: 1.0 },
                 html2canvas: { 
                     scale: 3, 
                     useCORS: true, 
                     backgroundColor: '#001a14', 
                     letterRendering: true,
-                    allowTaint: true
+                    allowTaint: true,
+                    logging: false
                 },
                 jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
             };
 
             try {
-                // Wait for images to load just in case
-                await new Promise(r => setTimeout(r, 500));
+                // Petit délai pour assurer que l'image et la police Amiri sont bien prêtes pour le canvas
+                await new Promise(r => setTimeout(r, 800));
                 await html2pdf().set(opt).from(pdfContainer).save();
             } catch (err) {
-                console.error("Erreur PDF:", err);
-                alert("Une erreur est survenue lors de la création du PDF. Veuillez réessayer.");
+                console.error("Erreur génération PDF:", err);
+                alert("Erreur technique lors de l'export. Merci de réessayer.");
             } finally {
                 pdfContainer.style.display = 'none';
                 btn.innerHTML = originalContent;
@@ -490,7 +526,7 @@
             const mid = Math.ceil(items.length / 2);
             
             const col1 = { title: "Accompagnements", items: items.slice(0, mid).map(i => ({ name: i.name, price: i.price })) };
-            const col2 = { title: "Spécialités de la Maison", items: items.slice(mid).map(i => ({ name: i.name, price: i.price })) };
+            const col2 = { title: "Spécialités du Chef", items: items.slice(mid).map(i => ({ name: i.name, price: i.price })) };
             
             alacarteGrid.innerHTML = createCard(col1) + createCard(col2);
         };
