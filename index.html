@@ -1,21 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grey Corner - Menu Ramadan</title>
+    <title>Grey Corner - Menu Ramadan d'Exception</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Library for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --emerald-deep: #011f18;
-            --emerald-light: #013220;
+            --emerald-deep: #001a14;
+            --emerald-mid: #013220;
+            --emerald-vibrant: #025c4c;
             --gold-primary: #d4af37;
             --gold-light: #f9e29b;
+            --gold-vibrant: #ffcc33;
+            --ruby: #8b0000;
         }
+        
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--emerald-deep);
@@ -24,6 +27,7 @@
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
+
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-arabic { font-family: 'Amiri', serif; }
         
@@ -33,30 +37,61 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .vibrant-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #ffcc33 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .ornament-bg {
             background-color: var(--emerald-deep);
-            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.5 7.5L40 10l-7.5 2.5L30 20l-2.5-7.5L20 10l7.5-2.5L30 0zm0 40l2.5 7.5L40 50l-7.5 2.5L30 60l-2.5-7.5L20 50l7.5-2.5L30 40zM0 30l7.5 2.5L10 40l2.5-7.5L20 30l-7.5-2.5L10 20l-2.5 7.5L0 30zm40 0l7.5 2.5L50 40l2.5-7.5L60 30l-7.5-2.5L50 20l-2.5 7.5L40 30z' fill='%23d4af37' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.5 7.5L40 10l-7.5 2.5L30 20l-2.5-7.5L20 10l7.5-2.5L30 0zm0 40l2.5 7.5L40 50l-7.5 2.5L30 60l-2.5-7.5L20 50l7.5-2.5L30 40zM0 30l7.5 2.5L10 40l2.5-7.5L20 30l-7.5-2.5L10 20l-2.5 7.5L0 30zm40 0l7.5 2.5L50 40l2.5-7.5L60 30l-7.5-2.5L50 20l-2.5 7.5L40 30z' fill='%23d4af37' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
         .glass-card {
-            background: rgba(1, 40, 30, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: rgba(1, 40, 30, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .formula-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .formula-btn.active {
-            border-color: var(--gold-primary);
-            background: rgba(1, 50, 32, 0.9);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
-            transform: scale(1.02);
+            border-color: var(--gold-vibrant);
+            background: rgba(1, 60, 45, 0.95);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            opacity: 1 !important;
+            filter: none !important;
+        }
+
+        .formula-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .formula-btn.active::after {
+            opacity: 1;
         }
 
         .fade-in {
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -66,29 +101,49 @@
         .gold-border-decor::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 15px; height: 15px;
-            border-top: 2px solid var(--gold-primary);
-            border-left: 2px solid var(--gold-primary);
-            opacity: 0.5;
+            top: 0; left: 0; width: 20px; height: 20px;
+            border-top: 3px solid var(--gold-primary);
+            border-left: 3px solid var(--gold-primary);
+            opacity: 0.6;
         }
         .gold-border-decor::after {
             content: '';
             position: absolute;
-            bottom: 0; right: 0; width: 15px; height: 15px;
-            border-bottom: 2px solid var(--gold-primary);
-            border-right: 2px solid var(--gold-primary);
-            opacity: 0.5;
+            bottom: 0; right: 0; width: 20px; height: 20px;
+            border-bottom: 3px solid var(--gold-primary);
+            border-right: 3px solid var(--gold-primary);
+            opacity: 0.6;
         }
 
-        /* Aspect ratio 9:16 for mobile, fixed for desktop */
         .hero-image-container {
             aspect-ratio: 9/16;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
         }
         @media (min-width: 640px) {
             .hero-image-container {
                 aspect-ratio: 21/9;
-                max-height: 400px;
+                max-height: 420px;
             }
+        }
+
+        .price-badge {
+            background: linear-gradient(135deg, #d4af37, #f9e29b, #d4af37);
+            color: #001a14;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
     </style>
 <script type="importmap">
@@ -101,142 +156,166 @@
 </script>
 </head>
 <body class="ornament-bg">
-    <div id="main-container" class="max-w-4xl mx-auto px-4 py-6 sm:py-12">
+    <div id="main-container" class="max-w-4xl mx-auto px-4 py-8 sm:py-16">
         <!-- TOP ACTIONS -->
-        <div class="flex justify-between items-center mb-8">
-            <button onclick="downloadPDF()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gold-primary/10 border border-gold-primary/30 rounded-full text-[10px] font-bold text-gold-primary uppercase tracking-[0.2em] hover:bg-gold-primary hover:text-emerald-950 transition-all shadow-lg active:scale-95">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                Télécharger PDF A5
+        <div class="flex justify-between items-center mb-10">
+            <button onclick="downloadPDF(event)" class="inline-flex items-center gap-3 px-6 py-3 bg-gold-primary/20 border border-gold-primary/40 rounded-full text-[11px] font-bold text-gold-light uppercase tracking-[0.25em] hover:bg-gold-primary hover:text-emerald-950 transition-all shadow-xl active:scale-95 group">
+                <svg class="w-5 h-5 group-hover:bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Exporter en A5
             </button>
-            <div class="flex gap-4">
-                 <a href="https://www.instagram.com/greycornerfes" target="_blank" class="text-gold-primary hover:scale-110 transition-transform active:opacity-70">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <div class="flex gap-5">
+                 <a href="https://www.instagram.com/greycornerfes" target="_blank" class="text-gold-primary hover:text-gold-vibrant hover:scale-125 transition-all active:opacity-70">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                  </a>
-                 <a href="2XMM+QQ grey corner, Fès 30050" target="_blank" class="text-gold-primary hover:scale-110 transition-transform active:opacity-70">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+                 <a href="https://maps.app.goo.gl/KZNhb9Hwpofn1WfR7" target="_blank" class="text-gold-primary hover:text-gold-vibrant hover:scale-125 transition-all active:opacity-70">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
                  </a>
             </div>
         </div>
 
         <!-- HEADER -->
-        <header class="text-center mb-8 relative">
-            <div class="flex justify-center mb-6">
-                <div class="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center">
-                    <div class="absolute inset-0 border-2 border-[#d4af37] rotate-45 rounded-2xl opacity-30 animate-pulse"></div>
-                    <div class="w-20 h-20 sm:w-28 sm:h-28 border border-[#d4af37]/50 rounded-full flex items-center justify-center bg-emerald-950/80 overflow-hidden shadow-2xl">
-                        <img src="images/LOGO GC.png" alt="Grey Corner Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain">
+        <header class="text-center mb-10 relative">
+            <div class="flex justify-center mb-8">
+                <div class="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
+                    <div class="absolute inset-0 border-2 border-[#d4af37] rotate-45 rounded-3xl opacity-30 animate-[spin_10s_linear_infinite]"></div>
+                    <div class="absolute inset-0 border border-[#d4af37] -rotate-12 rounded-full opacity-20"></div>
+                    <div class="w-24 h-24 sm:w-32 sm:h-32 border-2 border-[#d4af37]/60 rounded-full flex items-center justify-center bg-emerald-950/90 overflow-hidden shadow-[0_0_40px_rgba(212,175,55,0.2)] z-10">
+                        <img src="images/LOGO GC.png" alt="Grey Corner Logo" class="w-20 h-20 sm:w-24 sm:h-24 object-contain p-2">
                     </div>
                 </div>
             </div>
-            <h2 class="font-arabic text-4xl sm:text-6xl mb-3 gold-gradient">رمضان كريم</h2>
-            <h1 class="font-serif text-3xl sm:text-5xl tracking-[0.2em] font-bold text-white uppercase mb-2">Ramadan</h1>
-            <div class="flex items-center justify-center gap-3">
-                <div class="h-[1px] w-10 bg-gold-primary/50"></div>
-                <span class="font-serif text-lg sm:text-xl italic text-gold-light">Grey Corner</span>
-                <div class="h-[1px] w-10 bg-gold-primary/50"></div>
+            <h2 class="font-arabic text-5xl sm:text-7xl mb-4 vibrant-gradient drop-shadow-2xl">رمضان كريم</h2>
+            <h1 class="font-serif text-4xl sm:text-6xl tracking-[0.25em] font-bold text-white uppercase mb-3">Ramadan</h1>
+            <div class="flex items-center justify-center gap-4">
+                <div class="h-[2px] w-12 bg-gradient-to-r from-transparent via-gold-vibrant to-transparent"></div>
+                <span class="font-serif text-xl sm:text-2xl italic text-gold-light font-light tracking-widest">Grey Corner</span>
+                <div class="h-[2px] w-12 bg-gradient-to-r from-transparent via-gold-vibrant to-transparent"></div>
             </div>
         </header>
 
-        <!-- HERO MEAL IMAGE (9:16 optimized for mobile) -->
-        <div class="hero-image-container mb-10 rounded-[2.5rem] overflow-hidden border border-gold-primary/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative group">
-            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/20 to-transparent z-10"></div>
-            <img src="images/ramadan1.jpg" alt="Iftar Grey Corner" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-            <div class="absolute bottom-8 left-8 right-8 z-20">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="h-[1px] w-6 bg-gold-primary"></span>
-                    <p class="text-gold-primary text-[10px] uppercase tracking-[0.3em] font-bold">L'Excellence du F'tour</p>
+        <!-- HERO MEAL IMAGE -->
+        <div class="hero-image-container mb-12 rounded-[3rem] overflow-hidden border border-gold-primary/30 shadow-2xl relative group">
+            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/30 to-transparent z-10 opacity-80"></div>
+            <img src="images/ramadan1.jpg" alt="Iftar Grey Corner" class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110">
+            <div class="absolute bottom-10 left-10 right-10 z-20">
+                <div class="flex items-center gap-4 mb-3">
+                    <span class="h-[2px] w-10 bg-gold-vibrant"></span>
+                    <p class="text-gold-vibrant text-xs uppercase tracking-[0.4em] font-bold">L'Art de Recevoir</p>
                 </div>
-                <h3 class="text-white font-serif text-3xl sm:text-4xl leading-tight">Une parenthèse enchantée</h3>
+                <h3 class="text-white font-serif text-3xl sm:text-5xl leading-tight font-bold drop-shadow-lg">Le F'tour Signature</h3>
+                <p class="text-emerald-100/70 mt-3 max-w-lg text-sm sm:text-base">Une expérience sensorielle où les traditions de Fès rencontrent le raffinement moderne.</p>
             </div>
         </div>
 
         <!-- FORMULA SELECTOR -->
-        <div class="flex flex-col sm:flex-row gap-4 mb-12">
-            <button onclick="switchFormula('seafood')" id="btn-seafood" class="formula-btn active flex-1 p-6 sm:p-8 rounded-3xl border border-gold-primary/20 transition-all duration-300 text-center">
-                <p class="text-[9px] uppercase tracking-[0.4em] mb-2 font-bold text-gold-primary">Formule Iftar</p>
-                <h3 class="text-lg font-serif font-bold mb-3 text-white">Mqila Fruit de Mer</h3>
-                <div class="inline-flex items-baseline gap-1">
-                    <span class="text-3xl sm:text-4xl font-serif font-bold gold-gradient">125</span>
-                    <span class="text-xs text-gold-primary font-bold">DH</span>
+        <div class="flex flex-col sm:flex-row gap-6 mb-16">
+            <button onclick="switchFormula('seafood')" id="btn-seafood" class="formula-btn active flex-1 p-8 sm:p-10 rounded-[2.5rem] border border-gold-primary/30 transition-all duration-300 text-center relative group">
+                <div class="absolute top-4 right-6 text-gold-primary/30 group-hover:text-gold-vibrant transition-colors">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 4.03 3 9s-1.343 9-3 9m0-18c-1.657 0-3 4.03-3 9s1.343 9 3 9m-9-9a9 9 0 019-9"/></svg>
+                </div>
+                <p class="text-[10px] uppercase tracking-[0.5em] mb-3 font-bold text-gold-primary">Iftar Premium</p>
+                <h3 class="text-xl sm:text-2xl font-serif font-bold mb-4 text-white">Mqila Fruit de Mer</h3>
+                <div class="inline-flex items-baseline gap-2">
+                    <span class="text-4xl sm:text-5xl font-serif font-bold gold-gradient">125</span>
+                    <span class="text-sm text-gold-primary font-bold tracking-widest uppercase">DH</span>
                 </div>
             </button>
-            <button onclick="switchFormula('meat')" id="btn-meat" class="formula-btn flex-1 p-6 sm:p-8 rounded-3xl border border-gold-primary/20 transition-all duration-300 text-center opacity-50 grayscale-[0.5]">
-                <p class="text-[9px] uppercase tracking-[0.4em] mb-2 font-bold text-emerald-500">Formule Iftar</p>
-                <h3 class="text-lg font-serif font-bold mb-3 text-gray-400">Mqila Viande / Merguez</h3>
-                <div class="inline-flex items-baseline gap-1">
-                    <span class="text-3xl sm:text-4xl font-serif font-bold gold-gradient opacity-50">105</span>
-                    <span class="text-xs text-gold-primary font-bold opacity-50">DH</span>
+            <button onclick="switchFormula('meat')" id="btn-meat" class="formula-btn flex-1 p-8 sm:p-10 rounded-[2.5rem] border border-gold-primary/30 transition-all duration-300 text-center opacity-60 grayscale-[0.3] group">
+                <div class="absolute top-4 right-6 text-emerald-500/30 group-hover:text-emerald-400 transition-colors">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                </div>
+                <p class="text-[10px] uppercase tracking-[0.5em] mb-3 font-bold text-emerald-400">Iftar Tradition</p>
+                <h3 class="text-xl sm:text-2xl font-serif font-bold mb-4 text-gray-400 group-hover:text-white transition-colors">Mqila Viande / Merguez</h3>
+                <div class="inline-flex items-baseline gap-2">
+                    <span class="text-4xl sm:text-5xl font-serif font-bold gold-gradient opacity-60">105</span>
+                    <span class="text-sm text-gold-primary font-bold tracking-widest uppercase opacity-60">DH</span>
                 </div>
             </button>
         </div>
 
         <!-- DYNAMIC MENU CONTENT -->
-        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 fade-in">
+        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 fade-in">
             <!-- Content injected by JS -->
         </div>
 
         <!-- SEPARATOR -->
-        <div class="my-16 flex items-center justify-center gap-6">
-            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold-primary/30 to-transparent"></div>
-            <div class="text-gold-primary opacity-30">
-                <svg class="w-6 h-6" viewBox="0 0 100 100" fill="currentColor">
+        <div class="my-20 flex items-center justify-center gap-8">
+            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold-vibrant to-transparent opacity-40"></div>
+            <div class="text-gold-vibrant opacity-50 animate-pulse">
+                <svg class="w-8 h-8" viewBox="0 0 100 100" fill="currentColor">
                     <path d="M50 0 L55 45 L100 50 L55 55 L50 100 L45 55 L0 50 L45 45 Z" />
                 </svg>
             </div>
-            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold-primary/30 to-transparent"></div>
+            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold-vibrant to-transparent opacity-40"></div>
         </div>
 
         <!-- A LA CARTE -->
-        <div class="mb-20">
-            <div class="text-center mb-10">
-                <h2 class="font-serif text-3xl text-white mb-2 uppercase tracking-[0.4em]">À La Carte</h2>
-                <div class="w-16 h-[1px] bg-gold-primary mx-auto opacity-50"></div>
+        <div class="mb-24">
+            <div class="text-center mb-12">
+                <span class="text-gold-vibrant text-[10px] uppercase tracking-[0.6em] font-bold block mb-4">Supplément Gourmand</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-white mb-4 uppercase tracking-[0.2em]">À La Carte</h2>
+                <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-gold-primary to-transparent mx-auto"></div>
             </div>
-            <div id="alacarte-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+            <div id="alacarte-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                 <!-- Content injected by JS -->
             </div>
         </div>
 
         <!-- FOOTER -->
-        <footer class="text-center pt-12 border-t border-gold-primary/10 pb-10 glass-card rounded-t-[3rem] sm:rounded-[3rem]">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10 px-8">
-                <div>
-                    <span class="text-gold-primary text-[8px] uppercase tracking-widest block mb-2 font-bold opacity-60">Réservations</span>
-                    <a href="tel:0535940168" class="text-lg font-serif block hover:text-gold-primary transition-colors">0535 940 168</a>
-                    <a href="tel:0661446680" class="text-lg font-serif block hover:text-gold-primary transition-colors">0661 446 680</a>
+        <footer class="text-center pt-16 border-t border-gold-primary/20 pb-12 glass-card rounded-[4rem] sm:rounded-[5rem] overflow-hidden relative">
+            <div class="absolute top-0 left-0 w-full h-1 shimmer opacity-30"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12 px-10">
+                <div class="space-y-3">
+                    <span class="text-gold-vibrant text-[9px] uppercase tracking-widest block mb-3 font-bold">Réservations Directes</span>
+                    <a href="tel:0535940168" class="text-xl font-serif block hover:text-gold-vibrant transition-all hover:scale-105">0535 940 168</a>
+                    <a href="tel:0661446680" class="text-xl font-serif block hover:text-gold-vibrant transition-all hover:scale-105">0661 446 680</a>
                 </div>
                 <div class="flex flex-col items-center">
-                    <img src="images/LOGO GC.png" alt="Logo GC Small" class="w-10 h-10 object-contain mb-3 opacity-60">
-                    <span class="text-gold-primary text-[8px] uppercase tracking-widest block mb-1 font-bold opacity-60">Localisation</span>
-                    <p class="text-lg font-serif">Grey Corner, Fès</p>
+                    <div class="w-16 h-16 mb-4 flex items-center justify-center border border-gold-primary/20 rounded-full">
+                        <img src="images/LOGO GC.png" alt="Logo GC Small" class="w-10 h-10 object-contain opacity-80">
+                    </div>
+                    <span class="text-gold-vibrant text-[9px] uppercase tracking-widest block mb-2 font-bold">Nous Rendre Visite</span>
+                    <p class="text-xl font-serif text-white">Grey Corner, Fès</p>
+                    <a href="https://maps.app.goo.gl/KZNhb9Hwpofn1WfR7" target="_blank" class="text-xs text-gold-primary/70 mt-2 hover:text-gold-vibrant transition-colors underline decoration-gold-primary/20 underline-offset-4">Ouvrir dans Maps</a>
                 </div>
-                <div>
-                    <span class="text-gold-primary text-[8px] uppercase tracking-widest block mb-2 font-bold opacity-60">Suivez-nous</span>
-                    <a href="https://www.instagram.com/greycornerfes" target="_blank" class="text-lg font-serif hover:text-gold-primary transition-colors">@greycornerfes</a>
+                <div class="space-y-3">
+                    <span class="text-gold-vibrant text-[9px] uppercase tracking-widest block mb-3 font-bold">Réseaux Sociaux</span>
+                    <a href="https://www.instagram.com/greycornerfes" target="_blank" class="text-xl font-serif block hover:text-gold-vibrant transition-all hover:scale-105">@greycornerfes</a>
+                    <p class="text-[10px] text-emerald-100/40 italic">#GreyCornerRamadan</p>
                 </div>
             </div>
-            <p class="text-emerald-500/30 text-[7px] tracking-[0.5em] uppercase font-bold">
-                &copy; 2025 Grey Corner • Gastronomie & Raffinement
+            <p class="text-gold-primary/40 text-[9px] tracking-[0.5em] uppercase font-bold px-4">
+                &copy; 2025 Grey Corner • Expérience Gastronomique Émeraude & Or
             </p>
         </footer>
     </div>
 
     <!-- FLOATING CALL ACTION -->
-    <a href="tel:0535940168" class="fixed bottom-6 right-6 w-14 h-14 bg-gold-primary rounded-full flex items-center justify-center shadow-2xl z-50 transition-all active:scale-90 hover:scale-110 active:opacity-90">
-        <svg class="w-6 h-6 text-emerald-950" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 005.456 5.456l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-1C7.22 18 2 12.78 2 6V3z"/></svg>
+    <a href="tel:0535940168" class="fixed bottom-8 right-8 w-16 h-16 bg-gold-vibrant rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(255,204,51,0.4)] z-50 transition-all active:scale-90 hover:scale-110 active:opacity-90 animate-bounce">
+        <svg class="w-7 h-7 text-emerald-950" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 005.456 5.456l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-1C7.22 18 2 12.78 2 6V3z"/></svg>
     </a>
 
-    <!-- HIDDEN CONTAINER FOR PDF GENERATION (STYLIZED AS A5) -->
-    <div id="pdf-export-container" style="display:none; width: 148mm; padding: 15mm; background-color: #011f18; color: white; font-family: 'Playfair Display', serif;">
-        <div style="text-align: center; border: 1px solid rgba(212, 175, 55, 0.4); padding: 10mm; border-radius: 10mm;">
-             <div style="margin-bottom: 5mm;">
-                <img src="images/LOGO GC.png" style="width: 25mm; height: 25mm; object-fit: contain;">
+    <!-- PDF EXPORT TEMPLATE (HIDDEN) -->
+    <div id="pdf-export-container" style="display:none; width: 148mm; padding: 0; background-color: #001a14; color: white; font-family: 'Playfair Display', serif;">
+        <div style="background-color: #001a14; position: relative;">
+            <!-- Thumbnail Header -->
+            <div style="height: 50mm; width: 100%; overflow: hidden; position: relative;">
+                <img id="pdf-hero-thumb" src="images/ramadan1.jpg" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(transparent, #001a14);"></div>
+                <div style="position: absolute; bottom: 5mm; left: 50%; transform: translateX(-50%); text-align: center; width: 100%;">
+                    <img src="images/LOGO GC.png" style="width: 20mm; height: 20mm; object-fit: contain; background: #001a14; border-radius: 50%; padding: 2mm; border: 1px solid #d4af37;">
+                </div>
             </div>
-            <h1 style="font-size: 28pt; color: #d4af37; margin-bottom: 2mm; letter-spacing: 4px;">IFTAR RAMADAN</h1>
-            <h2 style="font-size: 14pt; letter-spacing: 8px; margin-bottom: 8mm; opacity: 0.8;">GREY CORNER</h2>
-            <div id="pdf-dynamic-content" style="font-family: 'Montserrat', sans-serif;"></div>
-            <div style="margin-top: 10mm; font-size: 9pt; color: #d4af37; border-top: 1px solid rgba(212, 175, 55, 0.2); pt: 5mm;">
-                0535 940 168 • 0661 446 680 • @greycornerfes
+
+            <div style="padding: 10mm; text-align: center;">
+                <h1 style="font-size: 26pt; color: #d4af37; margin: 0; letter-spacing: 4px; font-family: 'Amiri', serif;">رمضان كريم</h1>
+                <h2 style="font-size: 18pt; color: white; margin: 2mm 0; letter-spacing: 2px;">IFTAR RAMADAN</h2>
+                <div id="pdf-dynamic-content" style="font-family: 'Montserrat', sans-serif; margin-top: 5mm;"></div>
+                
+                <div style="margin-top: 8mm; padding-top: 5mm; border-top: 1px solid rgba(212, 175, 55, 0.3); font-size: 9pt; color: #d4af37;">
+                    <p style="margin: 0;">Fès • 0535 940 168 • 0661 446 680</p>
+                    <p style="margin: 2mm 0 0; opacity: 0.6; font-size: 7pt;">www.instagram.com/greycornerfes</p>
+                </div>
             </div>
         </div>
     </div>
@@ -244,34 +323,34 @@
     <script>
         const menuData = {
             common: [
-                { title: "Soupe Traditionnelle", items: [{ name: "Harira", desc: "La quintessence de la soupe marocaine" }] },
-                { title: "Le Plateau F'tour", items: [{ name: "Dattes, Œuf, Chabakia, Briouatte amande", desc: "Équilibre et tradition" }] },
-                { title: "Côté Beldi", items: [{ name: "Mlaoui, fromage frais, miel, Muffin", desc: "Douceurs authentiques" }] },
-                { title: "Sélection Salée", items: [{ name: "Nem, Quiche poulet, Pizza thon, Cigare fromage", desc: "Bouchées gourmandes" }] },
-                { title: "Rafraîchissements", items: [{ name: "Lait, Jus d'orange, Boisson chaude, Eau", desc: "Sélection de boissons" }] }
+                { title: "Soupes & Veloutés", items: [{ name: "Harira Traditionnelle", desc: "La quintessence de la soupe marocaine aux herbes fraîches" }] },
+                { title: "Le Plateau F'tour", items: [{ name: "Dattes Medjool, Œuf, Chabakia, Briouatte Amande", desc: "Les incontournables de la table marocaine" }] },
+                { title: "Délices Beldi", items: [{ name: "Mlaoui, Fromage frais, Miel pur, Muffin Maison", desc: "Douceurs authentiques et artisanales" }] },
+                { title: "Côté Salé", items: [{ name: "Nem croustillant, Quiche poulet, Mini-Pizza, Cigare Fromage", desc: "Assortiment de bouchées gourmandes" }] },
+                { title: "Eaux & Rafraîchissements", items: [{ name: "Lait frais, Jus d'orange pressé, Boisson chaude au choix, Eau minérale", desc: "Hydratation et énergie" }] }
             ],
             formulas: {
                 seafood: {
                     name: "Mqila Fruit de Mer",
                     price: "125 DH",
-                    main: { title: "Le Plat Principal", items: [{ name: "Salade Veggi + Mqila Fruit de mer", desc: "Saveurs marines relevées" }] }
+                    main: { title: "Le Chef-d'Œuvre", items: [{ name: "Salade Veggi Croquante + Mqila Fruit de Mer", desc: "Symphonie marine mijotée avec passion" }] }
                 },
                 meat: {
                     name: "Mqila Viande / Merguez",
                     price: "105 DH",
-                    main: { title: "Le Plat Principal", items: [{ name: "Salade Veggi + Mqila (Viande hachée ou Merguez)", desc: "Terroir et épices" }] }
+                    main: { title: "Le Chef-d'Œuvre", items: [{ name: "Salade Veggi Croquante + Mqila (Viande hachée ou Merguez)", desc: "Terroir et épices subtilement dosées" }] }
                 }
             },
             alacarte: [
                 { name: "Harira Traditionnelle", price: "25 DH" },
                 { name: "Plateau Accompagnements", price: "05 DH" },
-                { name: "Sélection Beldi", price: "06 DH" },
-                { name: "Assortiment Salés", price: "10 DH" },
-                { name: "Salade Veggi", price: "15 DH" },
-                { name: "Khlie aux œufs", price: "35 DH" },
-                { name: "Mqila Merguez", price: "45 DH" },
-                { name: "Mqila Viande hachée", price: "50 DH" },
-                { name: "Mqila Fruit de mer", price: "60 DH" }
+                { name: "Sélection Beldi (par pièce)", price: "06 DH" },
+                { name: "Assortiment Salés (par pièce)", price: "10 DH" },
+                { name: "Salade Veggi Fraîcheur", price: "15 DH" },
+                { name: "Khlie authentique aux œufs", price: "35 DH" },
+                { name: "Mqila Merguez Artisanale", price: "45 DH" },
+                { name: "Mqila Viande hachée Premium", price: "50 DH" },
+                { name: "Mqila Fruit de mer d'exception", price: "60 DH" }
             ]
         };
 
@@ -279,16 +358,19 @@
 
         function createCard(section) {
             return `
-                <div class="mb-6 p-6 rounded-3xl glass-card gold-border-decor">
-                    <h3 class="font-serif text-sm sm:text-base font-bold text-gold-primary border-b border-gold-primary/10 pb-3 mb-4 uppercase tracking-[0.2em] flex items-center gap-3">
-                        <span class="w-1.5 h-1.5 rounded-full bg-gold-primary shadow-[0_0_8px_rgba(212,175,55,0.8)]"></span>
+                <div class="mb-4 p-7 rounded-[2.5rem] glass-card gold-border-decor hover:border-gold-primary transition-all duration-500 hover:scale-[1.01]">
+                    <h3 class="font-serif text-sm sm:text-base font-bold text-gold-vibrant border-b border-gold-primary/20 pb-4 mb-5 uppercase tracking-[0.25em] flex items-center gap-4">
+                        <span class="w-2 h-2 rounded-full bg-gold-vibrant shadow-[0_0_12px_rgba(255,204,51,0.8)]"></span>
                         ${section.title}
                     </h3>
-                    <div class="space-y-4">
+                    <div class="space-y-5">
                         ${section.items.map(item => `
-                            <div>
-                                <p class="text-white text-sm sm:text-base font-medium leading-tight">${item.name}</p>
-                                ${item.desc ? `<p class="text-emerald-100/30 text-[10px] sm:text-xs italic mt-1 font-light">${item.desc}</p>` : ''}
+                            <div class="group">
+                                <div class="flex justify-between items-start gap-4">
+                                    <p class="text-white text-base sm:text-lg font-semibold leading-tight group-hover:text-gold-light transition-colors">${item.name}</p>
+                                    ${item.price ? `<span class="price-badge text-[10px] whitespace-nowrap">${item.price}</span>` : ''}
+                                </div>
+                                ${item.desc ? `<p class="text-emerald-100/50 text-[10px] sm:text-xs italic mt-2 font-light leading-relaxed group-hover:text-emerald-100/80 transition-colors">${item.desc}</p>` : ''}
                             </div>
                         `).join('')}
                     </div>
@@ -301,21 +383,21 @@
             document.querySelectorAll('.formula-btn').forEach(btn => {
                 const isTarget = btn.id === `btn-${id}`;
                 btn.classList.toggle('active', isTarget);
-                btn.classList.toggle('opacity-50', !isTarget);
-                btn.classList.toggle('grayscale-[0.5]', !isTarget);
+                btn.classList.toggle('opacity-60', !isTarget);
+                btn.classList.toggle('grayscale-[0.3]', !isTarget);
                 
                 const h3 = btn.querySelector('h3');
                 const p = btn.querySelector('p');
                 const priceSpan = btn.querySelector('.gold-gradient');
                 
                 if (isTarget) {
-                    h3.className = 'text-lg font-serif font-bold mb-3 text-white';
-                    p.className = 'text-[9px] uppercase tracking-[0.4em] mb-2 font-bold text-gold-primary';
-                    priceSpan.classList.remove('opacity-50');
+                    h3.className = 'text-xl sm:text-2xl font-serif font-bold mb-4 text-white';
+                    p.className = 'text-[10px] uppercase tracking-[0.5em] mb-3 font-bold text-gold-vibrant';
+                    priceSpan.classList.remove('opacity-60');
                 } else {
-                    h3.className = 'text-lg font-serif font-bold mb-3 text-gray-400';
-                    p.className = 'text-[9px] uppercase tracking-[0.4em] mb-2 font-bold text-emerald-500';
-                    priceSpan.classList.add('opacity-50');
+                    h3.className = 'text-xl sm:text-2xl font-serif font-bold mb-4 text-gray-400 group-hover:text-white transition-colors';
+                    p.className = 'text-[10px] uppercase tracking-[0.5em] mb-3 font-bold text-emerald-400';
+                    priceSpan.classList.add('opacity-60');
                 }
             });
 
@@ -329,10 +411,15 @@
             }, 200);
         }
 
-        async function downloadPDF() {
+        async function downloadPDF(event) {
             const btn = event.currentTarget;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Préparation...';
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg> Génération...
+            `;
             btn.disabled = true;
 
             const pdfContainer = document.getElementById('pdf-export-container');
@@ -340,17 +427,26 @@
             
             const formula = menuData.formulas[currentId];
             let html = `
-                <div style="margin: 5mm 0; border: 1px solid rgba(212, 175, 55, 0.2); padding: 5mm; border-radius: 5mm; background: rgba(1, 40, 30, 0.5);">
-                    <h3 style="color: #d4af37; font-size: 14pt; margin: 0; letter-spacing: 2px;">FORMULE : ${formula.name.toUpperCase()}</h3>
-                    <p style="font-size: 16pt; margin: 2mm 0; font-weight: bold; color: white;">${formula.price}</p>
+                <div style="margin: 3mm 0 6mm; border: 1.5px solid #d4af37; padding: 4mm; border-radius: 6mm; background: rgba(1, 60, 45, 0.4);">
+                    <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 8pt; color: #d4af37; margin: 0 0 1mm 0; font-weight: 700;">FORMULE IFTAR</p>
+                    <h3 style="color: #ffffff; font-size: 16pt; margin: 0; letter-spacing: 1px;">${formula.name}</h3>
+                    <p style="font-size: 18pt; margin: 2mm 0 0; font-weight: bold; color: #f9e29b;">${formula.price}</p>
                 </div>
             `;
             
             [...menuData.common, formula.main].forEach(sec => {
                 html += `
-                    <div style="margin-bottom: 4mm; text-align: left; page-break-inside: avoid;">
-                        <h4 style="color: #d4af37; border-bottom: 0.5px solid rgba(212, 175, 55, 0.3); font-size: 10pt; padding-bottom: 1mm; margin-bottom: 2mm; text-transform: uppercase; letter-spacing: 1px;">${sec.title}</h4>
-                        ${sec.items.map(i => `<p style="font-size: 9pt; margin: 1mm 0; color: #f3f4f6; opacity: 0.9;">• ${i.name}</p>`).join('')}
+                    <div style="margin-bottom: 5mm; text-align: left; page-break-inside: avoid;">
+                        <h4 style="color: #d4af37; border-bottom: 0.8px solid rgba(212, 175, 55, 0.4); font-size: 10pt; padding-bottom: 1.5mm; margin-bottom: 2mm; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">
+                            <span style="display:inline-block; width: 2mm; height: 2mm; background: #d4af37; border-radius: 50%; margin-right: 2mm;"></span>
+                            ${sec.title}
+                        </h4>
+                        ${sec.items.map(i => `
+                            <div style="margin-bottom: 1.5mm;">
+                                <p style="font-size: 9.5pt; margin: 0; color: #ffffff; font-weight: 600;">• ${i.name}</p>
+                                ${i.desc ? `<p style="font-size: 7.5pt; margin: 0.5mm 0 0 3.5mm; color: #a1c9c2; font-style: italic; opacity: 0.8;">${i.desc}</p>` : ''}
+                            </div>
+                        `).join('')}
                     </div>
                 `;
             });
@@ -362,17 +458,26 @@
                 margin: 0,
                 filename: `Menu-Iftar-GreyCorner-${currentId}.pdf`,
                 image: { type: 'jpeg', quality: 1.0 },
-                html2canvas: { scale: 3, useCORS: true, backgroundColor: '#011f18', letterRendering: true },
+                html2canvas: { 
+                    scale: 3, 
+                    useCORS: true, 
+                    backgroundColor: '#001a14', 
+                    letterRendering: true,
+                    allowTaint: true
+                },
                 jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
             };
 
             try {
+                // Wait for images to load just in case
+                await new Promise(r => setTimeout(r, 500));
                 await html2pdf().set(opt).from(pdfContainer).save();
             } catch (err) {
                 console.error("Erreur PDF:", err);
+                alert("Une erreur est survenue lors de la création du PDF. Veuillez réessayer.");
             } finally {
                 pdfContainer.style.display = 'none';
-                btn.innerHTML = originalText;
+                btn.innerHTML = originalContent;
                 btn.disabled = false;
             }
         }
@@ -384,8 +489,8 @@
             const items = menuData.alacarte;
             const mid = Math.ceil(items.length / 2);
             
-            const col1 = { title: "Entrées & Extras", items: items.slice(0, mid).map(i => ({ name: i.name, desc: i.price })) };
-            const col2 = { title: "Plats Signature", items: items.slice(mid).map(i => ({ name: i.name, desc: i.price })) };
+            const col1 = { title: "Accompagnements", items: items.slice(0, mid).map(i => ({ name: i.name, price: i.price })) };
+            const col2 = { title: "Spécialités de la Maison", items: items.slice(mid).map(i => ({ name: i.name, price: i.price })) };
             
             alacarteGrid.innerHTML = createCard(col1) + createCard(col2);
         };
