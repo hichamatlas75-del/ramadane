@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grey Corner - Menu Ramadan d'Exception</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --emerald-deep: #001a14;
-            --emerald-mid: #013220;
-            --emerald-vibrant: #025c4c;
             --gold-primary: #d4af37;
             --gold-light: #f9e29b;
             --gold-vibrant: #ffcc33;
@@ -43,27 +42,12 @@
             background: rgba(1, 40, 30, 0.75);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .formula-btn {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .formula-btn.active {
             border-color: var(--gold-vibrant);
             background: rgba(1, 60, 45, 0.95);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
-            transform: scale(1.03);
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
         }
 
         .price-badge {
@@ -74,102 +58,106 @@
             font-weight: 700;
             font-size: 0.75rem;
         }
+
+        /* Style spécifique pour le bouton PDF */
+        #pdf-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--gold-primary);
+            color: var(--emerald-deep);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        
+        #pdf-trigger:active { transform: scale(0.9); }
+
+        @media print { #pdf-trigger { display: none; } }
     </style>
 </head>
 <body class="ornament-bg">
-    <div id="main-container" class="max-w-md mx-auto px-5 py-10">
+
+    <button id="pdf-trigger" onclick="generatePDF()" title="Générer PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+    </button>
+
+    <div id="content-to-export" class="max-w-md mx-auto px-5 py-10">
         
-        <header class="text-center mb-12">
+        <header class="text-center mb-10">
             <div class="flex justify-center mb-6">
-                <div class="relative w-32 h-32 flex items-center justify-center">
-                    <div class="absolute inset-0 border-2 border-[#d4af37] rotate-45 rounded-3xl opacity-30"></div>
-                    <div class="w-24 h-24 border-2 border-[#d4af37]/60 rounded-full flex items-center justify-center bg-emerald-950/90 overflow-hidden shadow-xl z-10">
-                        <img src="images/LOGO GC.png" alt="Grey Corner Logo" class="w-20 h-20 object-contain p-2">
-                    </div>
+                <div class="relative w-28 h-28 flex items-center justify-center">
+                    <div class="absolute inset-0 border border-[#d4af37] rotate-45 rounded-2xl opacity-40"></div>
+                    <img src="images/LOGO GC.png" alt="Grey Corner Logo" class="w-20 h-20 object-contain z-10">
                 </div>
             </div>
-            <h2 class="font-arabic text-6xl mb-4 gold-gradient">رمضان كريم</h2>
-            <h1 class="font-serif text-3xl tracking-[0.2em] font-bold text-white uppercase mb-2">Ramadan</h1>
-            <p class="font-serif italic text-gold-light tracking-widest text-lg">Grey Corner Fès</p>
+            <h2 class="font-arabic text-5xl mb-3 gold-gradient">رمضان كريم</h2>
+            <h1 class="font-serif text-2xl tracking-[0.2em] font-bold text-white uppercase">Ramadan</h1>
+            <p class="font-serif italic text-gold-light tracking-widest text-sm">Grey Corner Fès</p>
         </header>
 
-        <div class="flex flex-col gap-4 mb-10">
-            <button onclick="switchFormula('seafood')" id="btn-seafood" class="formula-btn active p-6 rounded-[2rem] border border-gold-primary/30 text-center relative">
-                <p class="text-[9px] uppercase tracking-[0.4em] mb-2 font-bold text-gold-primary">Iftar Premium</p>
-                <h3 class="text-xl font-serif font-bold text-white">Mqila Fruit de Mer</h3>
-                <p class="text-2xl font-serif font-bold gold-gradient mt-1">125 DH</p>
+        <div class="flex flex-col gap-3 mb-8 no-pdf">
+            <button onclick="switchFormula('seafood')" id="btn-seafood" class="formula-btn active p-5 rounded-2xl border border-gold-primary/30 text-center">
+                <p class="text-[8px] uppercase tracking-widest font-bold text-gold-primary">Formule Premium</p>
+                <h3 class="text-lg font-serif font-bold text-white">Mqila Fruit de Mer - 125 DH</h3>
             </button>
-            
-            <button onclick="switchFormula('meat')" id="btn-meat" class="formula-btn p-6 rounded-[2rem] border border-gold-primary/10 text-center opacity-60">
-                <p class="text-[9px] uppercase tracking-[0.4em] mb-2 font-bold text-emerald-400">Iftar Tradition</p>
-                <h3 class="text-xl font-serif font-bold text-gray-300">Mqila Viande / Merguez</h3>
-                <p class="text-2xl font-serif font-bold text-gray-400 mt-1">105 DH</p>
+            <button onclick="switchFormula('meat')" id="btn-meat" class="formula-btn p-5 rounded-2xl border border-gold-primary/10 text-center opacity-60">
+                <p class="text-[8px] uppercase tracking-widest font-bold text-emerald-400">Formule Tradition</p>
+                <h3 class="text-lg font-serif font-bold text-gray-300">Mqila Viande/Merguez - 105 DH</h3>
             </button>
         </div>
 
-        <div id="menu-grid" class="space-y-4 fade-in">
-            </div>
+        <div id="menu-grid" class="space-y-4"></div>
 
-        <div class="mt-16 mb-12">
-            <div class="text-center mb-8">
-                <span class="text-gold-vibrant text-[10px] uppercase tracking-[0.5em] font-bold block mb-2">Plaisirs en Plus</span>
-                <h2 class="font-serif text-3xl text-white uppercase tracking-widest">À La Carte</h2>
-                <div class="w-16 h-[1px] bg-gold-primary/40 mx-auto mt-4"></div>
-            </div>
-            <div id="alacarte-content" class="space-y-3">
-                </div>
+        <div class="mt-12 mb-8">
+            <div id="alacarte-content"></div>
         </div>
 
-        <footer class="glass-card rounded-[3rem] p-8 text-center space-y-6">
-            <div class="space-y-1">
-                <span class="text-gold-vibrant text-[9px] uppercase tracking-widest block font-bold">Réservations</span>
-                <a href="tel:0535940168" class="text-xl font-serif block">0535 940 168</a>
-                <a href="tel:0661446680" class="text-xl font-serif block">0661 446 680</a>
-            </div>
-            <div class="pt-4 border-t border-gold-primary/20">
-                <p class="text-sm italic text-emerald-100/70 mb-2">Vivez un moment unique en famille</p>
-                <p class="font-serif text-white">@greycornerfes</p>
-            </div>
+        <footer class="glass-card rounded-3xl p-6 text-center">
+            <p class="text-gold-vibrant font-serif text-sm">0535 940 168 • 0661 446 680</p>
+            <p class="text-[10px] text-white/60 mt-2">— L'équipe Grey Corner Fès</p>
         </footer>
     </div>
 
     <script>
         const menuData = {
             common: [
-                { title: "Soupes & Veloutés", items: [{ name: "Harira Traditionnelle", desc: "La quintessence du f'tour marocain" }] },
-                { title: "Plateau F'tour", items: [{ name: "Dattes, Œuf, Chabakia, Briouatte", desc: "Les indispensables de la table" }] },
-                { title: "Délices Beldi", items: [{ name: "Mlaoui, Fromage, Miel, Muffin Maison", desc: "Douceurs artisanales" }] },
-                { title: "Côté Salé", items: [{ name: "Nem, Quiche, Mini-Pizza, Cigare", desc: "Assortiment croustillant" }] },
-                { title: "Boissons", items: [{ name: "Jus frais, Boisson chaude, Lait, Eau", desc: "Rafraîchissements au choix" }] }
+                { title: "Incontournables", items: [{ name: "Harira & Plateau F'tour", desc: "Dattes, Œuf, Chabakia, Briouatte" }] },
+                { title: "Côté Salé", items: [{ name: "Assortiment Croustillant", desc: "Nem, Quiche, Mini-Pizza, Cigare" }] },
+                { title: "Douceurs & Jus", items: [{ name: "Délices Beldi & Boissons", desc: "Mlaoui, Miel, Jus frais, Boisson chaude" }] }
             ],
             formulas: {
-                seafood: { main: { title: "Chef-d'Œuvre", items: [{ name: "Salade Veggi + Mqila Fruit de Mer", desc: "Symphonie marine mijotée avec passion" }] } },
-                meat: { main: { title: "Chef-d'Œuvre", items: [{ name: "Salade Veggi + Mqila (Viande/Merguez)", desc: "Terroir et épices subtilement dosées" }] } }
+                seafood: { main: { title: "Plat Signature", items: [{ name: "Mqila Fruit de Mer + Salade", desc: "Symphonie marine mijotée" }] } },
+                meat: { main: { title: "Plat Signature", items: [{ name: "Mqila Viande ou Merguez + Salade", desc: "Saveurs authentiques du terroir" }] } }
             },
             alacarte: [
-                { name: "Harira Traditionnelle", price: "25 DH" },
-                { name: "Khlie authentique aux œufs", price: "35 DH" },
-                { name: "Mqila Merguez Artisanale", price: "45 DH" },
-                { name: "Mqila Viande hachée Premium", price: "50 DH" },
+                { name: "Khlie aux œufs", price: "35 DH" },
+                { name: "Mqila Merguez", price: "45 DH" },
+                { name: "Mqila Viande hachée", price: "50 DH" },
                 { name: "Mqila Fruit de mer", price: "60 DH" }
             ]
         };
 
         function createCard(section) {
             return `
-                <div class="p-6 rounded-[2rem] glass-card">
-                    <h3 class="font-serif text-xs font-bold text-gold-vibrant uppercase tracking-widest mb-4 flex items-center gap-3">
-                        <span class="w-1.5 h-1.5 rounded-full bg-gold-vibrant"></span>
-                        ${section.title}
-                    </h3>
-                    <div class="space-y-4">
+                <div class="p-5 rounded-2xl glass-card">
+                    <h3 class="font-serif text-[10px] font-bold text-gold-vibrant uppercase tracking-widest mb-3 border-b border-gold-primary/20 pb-2">${section.title}</h3>
+                    <div class="space-y-3">
                         ${section.items.map(item => `
-                            <div>
-                                <div class="flex justify-between items-start gap-4">
-                                    <p class="text-white text-sm font-semibold">${item.name}</p>
-                                    ${item.price ? `<span class="price-badge">${item.price}</span>` : ''}
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-white text-xs font-semibold">${item.name}</p>
+                                    <p class="text-emerald-100/50 text-[10px] italic">${item.desc || ''}</p>
                                 </div>
-                                ${item.desc ? `<p class="text-emerald-100/50 text-[11px] italic mt-1 font-light">${item.desc}</p>` : ''}
+                                ${item.price ? `<span class="price-badge">${item.price}</span>` : ''}
                             </div>
                         `).join('')}
                     </div>
@@ -178,25 +166,26 @@
         }
 
         function switchFormula(id) {
-            document.querySelectorAll('.formula-btn').forEach(btn => {
-                const isTarget = btn.id === `btn-${id}`;
-                btn.classList.toggle('active', isTarget);
-                btn.classList.toggle('opacity-60', !isTarget);
-                btn.style.borderColor = isTarget ? 'var(--gold-vibrant)' : 'rgba(212, 175, 55, 0.1)';
-            });
+            document.querySelectorAll('.formula-btn').forEach(btn => btn.classList.toggle('active', btn.id === `btn-${id}`));
+            const sections = [...menuData.common, menuData.formulas[id].main];
+            document.getElementById('menu-grid').innerHTML = sections.map(sec => createCard(sec)).join('');
+        }
 
-            const grid = document.getElementById('menu-grid');
-            grid.style.opacity = '0';
-            setTimeout(() => {
-                const sections = [...menuData.common, menuData.formulas[id].main];
-                grid.innerHTML = sections.map(sec => createCard(sec)).join('');
-                grid.style.opacity = '1';
-            }, 200);
+        function generatePDF() {
+            const element = document.getElementById('content-to-export');
+            const opt = {
+                margin: 10,
+                filename: 'Menu_Ramadan_Grey_Corner.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, backgroundColor: '#001a14' },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
         }
 
         window.onload = () => {
             switchFormula('seafood');
-            document.getElementById('alacarte-content').innerHTML = createCard({title: "Suppléments", items: menuData.alacarte});
+            document.getElementById('alacarte-content').innerHTML = createCard({title: "À la Carte", items: menuData.alacarte});
         };
     </script>
 </body>
