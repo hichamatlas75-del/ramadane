@@ -11,62 +11,72 @@
             --gold: #d4af37;
             --white: #ffffff;
         }
-        body { margin: 0; padding: 0; background: #ccc; font-family: 'Montserrat', sans-serif; }
+        body { margin: 0; padding: 0; background: #333; font-family: 'Montserrat', sans-serif; }
         
-        /* Conteneur A4 pour le rendu */
         .page {
             width: 210mm;
-            height: 296mm; /* Légèrement moins que 297 pour éviter les sauts de page fantômes */
+            height: 296mm;
             background: var(--emerald);
             color: white;
             position: relative;
             box-sizing: border-box;
-            padding: 15mm;
+            padding: 12mm 15mm;
             margin: 10px auto;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 1px solid #000;
+            page-break-after: always;
         }
 
-        /* Cadre décoratif */
         .frame {
             position: absolute;
             top: 5mm; left: 5mm; right: 5mm; bottom: 5mm;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             pointer-events: none;
         }
 
-        header { text-align: center; margin-bottom: 10mm; }
-        .logo { width: 30mm; margin-bottom: 5mm; }
-        .ramadan-kareem { font-family: 'Amiri', serif; color: var(--gold); font-size: 50pt; line-height: 1; }
-        .menu-title { font-family: 'Playfair Display', serif; letter-spacing: 8px; font-size: 22pt; margin: 2mm 0; text-transform: uppercase; }
+        header { text-align: center; margin-bottom: 8mm; position: relative; z-index: 2; }
+        
+        /* Style du Logo */
+        .logo-container {
+            width: 35mm;
+            height: 35mm;
+            margin: 0 auto 5mm;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            padding: 3mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 26, 20, 0.8);
+        }
+        .logo-img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Bannière Formule */
+        .ramadan-kareem { font-family: 'Amiri', serif; color: var(--gold); font-size: 48pt; line-height: 1; margin-bottom: 2mm; }
+        .menu-title { font-family: 'Playfair Display', serif; letter-spacing: 6px; font-size: 20pt; margin: 0; text-transform: uppercase; }
+
         .formula-banner {
             border: 2px solid var(--gold);
             background: rgba(212, 175, 55, 0.05);
-            border-radius: 10mm;
-            padding: 6mm 10mm;
+            border-radius: 8mm;
+            padding: 5mm 8mm;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10mm;
         }
-        .formula-name { font-family: 'Playfair Display', serif; font-size: 26pt; margin: 0; }
-        .price { background: var(--gold); color: var(--emerald); padding: 4mm 8mm; border-radius: 6mm; font-weight: 900; font-size: 24pt; }
+        .formula-name { font-family: 'Playfair Display', serif; font-size: 24pt; margin: 0; color: white; }
+        .price { background: var(--gold); color: var(--emerald); padding: 3mm 7mm; border-radius: 5mm; font-weight: 900; font-size: 22pt; }
 
-        /* Grille Menu */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8mm 12mm;
+            gap: 6mm 12mm;
             flex-grow: 1;
         }
         .section-title {
             color: var(--gold);
-            font-size: 11pt;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            font-size: 10pt;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             padding-bottom: 2mm;
             margin-bottom: 4mm;
             text-transform: uppercase;
@@ -75,24 +85,30 @@
         }
         .item { margin-bottom: 4mm; }
         .item-name { font-size: 11pt; font-weight: 700; margin: 0; }
-        .item-desc { font-size: 9pt; color: #a1c9c2; font-style: italic; margin-top: 1mm; line-height: 1.2; }
+        .item-desc { font-size: 8.5pt; color: #a1c9c2; font-style: italic; margin-top: 1mm; line-height: 1.2; }
 
-        /* Pied de page / À la carte */
         .alacarte-section {
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            padding-top: 6mm;
-            margin-top: 6mm;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 5mm;
+            margin-top: 5mm;
         }
-        .alacarte-title { text-align: center; letter-spacing: 5px; font-size: 14pt; margin-bottom: 5mm; font-weight: 300; }
+        .alacarte-title { text-align: center; letter-spacing: 4px; font-size: 12pt; margin-bottom: 4mm; font-weight: 300; color: var(--gold); }
         .alacarte-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2mm 10mm;
-            font-size: 9pt;
+            font-size: 8.5pt;
         }
-        .alacarte-item { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1mm; }
+        .alacarte-item { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5mm; }
         
-        footer { text-align: center; color: var(--gold); font-size: 10pt; font-weight: bold; margin-top: 8mm; }
+        /* Signature Bas de Page */
+        footer { 
+            text-align: center; 
+            margin-top: 8mm; 
+            padding-bottom: 2mm;
+        }
+        .footer-info { color: var(--gold); font-size: 9pt; font-weight: bold; letter-spacing: 1px; margin-bottom: 2mm; }
+        .footer-signature { font-family: 'Playfair Display', serif; font-size: 10pt; font-style: italic; opacity: 0.9; }
 
         #btn-print {
             position: fixed;
@@ -104,28 +120,31 @@
             font-weight: bold;
             cursor: pointer;
             border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             z-index: 100;
+            transition: transform 0.2s;
         }
-        @media print { #btn-print { display: none; } }
+        #btn-print:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-    <button id="btn-print" onclick="generatePDF()">TÉLÉCHARGER LE MENU (PDF A4)</button>
+    <button id="btn-print" onclick="generatePDF()">TÉLÉCHARGER LE PDF POUR IMPRESSION</button>
 
     <div id="pdf-content">
         <div class="page">
             <div class="frame"></div>
             <header>
+                <div class="logo-container">
+                    <img src="images/LOGO GC.png" alt="Grey Corner" class="logo-img">
+                </div>
                 <div class="ramadan-kareem">رمضان كريم</div>
                 <h1 class="menu-title">Grey Corner Fès</h1>
-                <p style="letter-spacing: 3px; font-size: 10pt; opacity: 0.8;">MENU IFTAR SIGNATURE</p>
             </header>
 
             <div class="formula-banner">
                 <div>
-                    <span style="font-size: 9pt; letter-spacing: 3px; color: var(--gold);">FORMULE PREMIUM</span>
+                    <span style="font-size: 8pt; letter-spacing: 3px; color: var(--gold); font-weight: 700;">IFTAR D'EXCEPTION</span>
                     <h2 class="formula-name">Mqila Fruit de Mer</h2>
                 </div>
                 <div class="price">125 DH</div>
@@ -136,7 +155,7 @@
                     <h4 class="section-title">Incontournables</h4>
                     <div class="item">
                         <p class="item-name">Harira Traditionnelle</p>
-                        <p class="item-desc">Soupe marocaine authentique et ses herbes fraîches.</p>
+                        <p class="item-desc">Quintessence de la soupe marocaine aux herbes fraîches.</p>
                     </div>
                     <div class="item">
                         <p class="item-name">Plateau F'tour</p>
@@ -147,57 +166,60 @@
                     <h4 class="section-title">Le Chef-d'Œuvre</h4>
                     <div class="item">
                         <p class="item-name">Mqila Fruit de Mer</p>
-                        <p class="item-desc">Symphonie marine mijotée aux épices douces, servie avec Salade Veggi.</p>
+                        <p class="item-desc">Symphonie marine mijotée avec passion, servie avec Salade Veggi.</p>
                     </div>
                 </div>
                 <div>
                     <h4 class="section-title">Côté Salé</h4>
                     <div class="item">
-                        <p class="item-name">Assortiment Croustillant</p>
+                        <p class="item-name">Bouchées Croustillantes</p>
                         <p class="item-desc">Nem, Quiche poulet, Mini-Pizza, Cigare Fromage.</p>
                     </div>
                 </div>
                 <div>
-                    <h4 class="section-title">Douceurs & Boissons</h4>
+                    <h4 class="section-title">Douceurs & Fraîcheur</h4>
                     <div class="item">
                         <p class="item-name">Délices Beldi</p>
                         <p class="item-desc">Mlaoui, Fromage frais, Miel pur, Muffin Maison.</p>
                     </div>
                     <div class="item">
                         <p class="item-name">Boissons au choix</p>
-                        <p class="item-desc">Jus d'orange frais, Lait, Boisson chaude, Eau.</p>
+                        <p class="item-desc">Jus frais, Lait, Boisson chaude, Eau Minérale.</p>
                     </div>
                 </div>
             </div>
 
             <div class="alacarte-section">
-                <h4 class="alacarte-title">À LA CARTE</h4>
+                <h4 class="alacarte-title">SUPPLÉMENTS GOURMANDS</h4>
                 <div class="alacarte-grid">
                     <div class="alacarte-item"><span>Harira Traditionnelle</span><b>25 DH</b></div>
-                    <div class="alacarte-item"><span>Assortiment Salés (pce)</span><b>10 DH</b></div>
                     <div class="alacarte-item"><span>Salade Veggi Fraîcheur</span><b>15 DH</b></div>
-                    <div class="alacarte-item"><span>Khlie Authentique aux œufs</span><b>35 DH</b></div>
+                    <div class="alacarte-item"><span>Assortiment Salés (pce)</span><b>10 DH</b></div>
                     <div class="alacarte-item"><span>Mqila Merguez Artisanale</span><b>45 DH</b></div>
+                    <div class="alacarte-item"><span>Khlie Authentique aux œufs</span><b>35 DH</b></div>
                     <div class="alacarte-item"><span>Mqila Viande Hachée</span><b>50 DH</b></div>
                 </div>
             </div>
 
             <footer>
-                0535 940 168 • 0661 446 680 • @greycornerfes
+                <div class="footer-info">0535 940 168 • 0661 446 680 • @greycornerfes</div>
+                <div class="footer-signature">— L'équipe Grey Corner Fès</div>
             </footer>
         </div>
 
         <div class="page">
             <div class="frame"></div>
             <header>
+                <div class="logo-container">
+                    <img src="images/LOGO GC.png" alt="Grey Corner" class="logo-img">
+                </div>
                 <div class="ramadan-kareem">رمضان كريم</div>
                 <h1 class="menu-title">Grey Corner Fès</h1>
-                <p style="letter-spacing: 3px; font-size: 10pt; opacity: 0.8;">MENU IFTAR TRADITION</p>
             </header>
 
             <div class="formula-banner">
                 <div>
-                    <span style="font-size: 9pt; letter-spacing: 3px; color: var(--gold);">FORMULE TERROIR</span>
+                    <span style="font-size: 8pt; letter-spacing: 3px; color: var(--gold); font-weight: 700;">IFTAR TRADITION</span>
                     <h2 class="formula-name">Mqila Viande / Merguez</h2>
                 </div>
                 <div class="price">105 DH</div>
@@ -208,7 +230,7 @@
                     <h4 class="section-title">Incontournables</h4>
                     <div class="item">
                         <p class="item-name">Harira Traditionnelle</p>
-                        <p class="item-desc">La quintessence du terroir fassi.</p>
+                        <p class="item-desc">Recette ancestrale pour une rupture du jeûne en douceur.</p>
                     </div>
                     <div class="item">
                         <p class="item-name">Plateau F'tour</p>
@@ -218,36 +240,36 @@
                 <div>
                     <h4 class="section-title">Le Chef-d'Œuvre</h4>
                     <div class="item">
-                        <p class="item-name">Mqila au Choix</p>
+                        <p class="item-name">Mqila Terroir</p>
                         <p class="item-desc">Viande hachée Premium ou Merguez artisanales + Salade Veggi.</p>
                     </div>
                 </div>
                 <div>
                     <h4 class="section-title">Côté Salé</h4>
                     <div class="item">
-                        <p class="item-name">Assortiment Croustillant</p>
+                        <p class="item-name">Bouchées Croustillantes</p>
                         <p class="item-desc">Nem, Quiche poulet, Mini-Pizza, Cigare Fromage.</p>
                     </div>
                 </div>
                 <div>
-                    <h4 class="section-title">Douceurs & Boissons</h4>
+                    <h4 class="section-title">Douceurs & Fraîcheur</h4>
                     <div class="item">
                         <p class="item-name">Délices Beldi</p>
                         <p class="item-desc">Mlaoui, Fromage frais, Miel pur, Muffin Maison.</p>
                     </div>
                     <div class="item">
                         <p class="item-name">Boissons au choix</p>
-                        <p class="item-desc">Jus d'orange frais, Lait, Boisson chaude, Eau.</p>
+                        <p class="item-desc">Jus frais, Lait, Boisson chaude, Eau Minérale.</p>
                     </div>
                 </div>
             </div>
 
             <div class="alacarte-section">
-                <h4 class="alacarte-title">À LA CARTE</h4>
+                <h4 class="alacarte-title">SUPPLÉMENTS GOURMANDS</h4>
                 <div class="alacarte-grid">
                     <div class="alacarte-item"><span>Harira Traditionnelle</span><b>25 DH</b></div>
-                    <div class="alacarte-item"><span>Assortiment Salés (pce)</span><b>10 DH</b></div>
                     <div class="alacarte-item"><span>Salade Veggi Fraîcheur</span><b>15 DH</b></div>
+                    <div class="alacarte-item"><span>Assortiment Salés (pce)</span><b>10 DH</b></div>
                     <div class="alacarte-item"><span>Khlie Authentique aux œufs</span><b>35 DH</b></div>
                     <div class="alacarte-item"><span>Mqila Merguez Artisanale</span><b>45 DH</b></div>
                     <div class="alacarte-item"><span>Mqila Fruit de mer d'exception</span><b>60 DH</b></div>
@@ -255,7 +277,8 @@
             </div>
 
             <footer>
-                0535 940 168 • 0661 446 680 • @greycornerfes
+                <div class="footer-info">0535 940 168 • 0661 446 680 • @greycornerfes</div>
+                <div class="footer-signature">— L'équipe Grey Corner Fès</div>
             </footer>
         </div>
     </div>
@@ -265,9 +288,9 @@
             const element = document.getElementById('pdf-content');
             const opt = {
                 margin: 0,
-                filename: 'Menu_Ramadan_Grey_Corner.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                filename: 'Menu_Ramadan_Grey_Corner_A4.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 3, useCORS: true, logging: false },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save();
