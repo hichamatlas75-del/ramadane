@@ -1,407 +1,85 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Grey Corner • Menu Ramadan</title>
-  <meta name="theme-color" content="#0b2a3a" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg1:#071823;
-      --bg2:#0b2a3a;
-      --card: rgba(255,255,255,.06);
-      --stroke: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --gold1:#E8C777;
-      --gold2:#CFA24E;
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --r: 22px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 15% -10%, rgba(232,199,119,.22), transparent 55%),
-        radial-gradient(1000px 800px at 95% 10%, rgba(207,162,78,.18), transparent 55%),
-        linear-gradient(180deg, var(--bg2), var(--bg1));
-      min-height:100vh;
-      overflow-x:hidden;
-    }
-
-    .wrap{
-      width:min(940px, 100%);
-      margin:0 auto;
-      padding:18px 16px 96px;
-    }
-
-    .top{
-      position:sticky; top:0;
-      z-index:20;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(7,24,35,.85), rgba(7,24,35,.35));
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .top-inner{
-      width:min(940px, 100%);
-      margin:0 auto;
-      padding:14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .brand{
-      display:flex; flex-direction:column; line-height:1.05;
-    }
-    .brand small{
-      color:var(--muted);
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-weight:600;
-      font-size:.72rem;
-    }
-    .brand strong{
-      font-family: "Playfair Display", serif;
-      font-size:1.25rem;
-      letter-spacing:.02em;
-    }
-
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      user-select:none;
-    }
-    .dot{
-      width:8px; height:8px; border-radius:999px;
-      background: linear-gradient(135deg, var(--gold1), var(--gold2));
-      box-shadow: 0 0 0 4px rgba(232,199,119,.16);
-    }
-    .pill span{font-weight:600; font-size:.92rem}
-
-    .hero{
-      margin-top:14px;
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(900px 500px at 20% 0%, rgba(232,199,119,.14), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      padding:18px 16px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(600px 260px at 15% 10%, rgba(232,199,119,.12), transparent 60%),
-        radial-gradient(520px 260px at 90% 0%, rgba(207,162,78,.10), transparent 60%);
-      pointer-events:none;
-    }
-    .hero h1{
-      margin:0 0 6px;
-      font-family:"Playfair Display", serif;
-      font-size:1.9rem;
-      letter-spacing:.01em;
-      position:relative;
-    }
-    .hero p{
-      margin:0;
-      color:var(--muted);
-      position:relative;
-      font-size:.98rem;
-    }
-    .grid{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-    }
-    @media (min-width: 720px){
-      .grid{ grid-template-columns: 1fr 1fr; }
-    }
-
-    .card{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background: var(--card);
-      box-shadow: 0 12px 32px rgba(0,0,0,.22);
-      padding:16px;
-      overflow:hidden;
-      position:relative;
-    }
-    .card:after{
-      content:"";
-      position:absolute; inset:0;
-      background: radial-gradient(500px 220px at 20% -10%, rgba(232,199,119,.10), transparent 60%);
-      pointer-events:none;
-    }
-    .card h2{
-      margin:0 0 10px;
-      font-family:"Playfair Display", serif;
-      font-size:1.25rem;
-      position:relative;
-      display:flex; align-items:baseline; justify-content:space-between; gap:10px;
-    }
-    .badge{
-      font-family:Inter, sans-serif;
-      font-size:.82rem;
-      font-weight:700;
-      color:#0b2a3a;
-      background: linear-gradient(135deg, var(--gold1), var(--gold2));
-      padding:6px 10px;
-      border-radius:999px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.18);
-      white-space:nowrap;
-    }
-
-    .list{margin:0; padding-left:18px; position:relative}
-    .list li{margin:8px 0; color: rgba(255,255,255,.86)}
-    .muted{color:var(--muted)}
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.12);
-      margin:14px 0;
-    }
-
-    .cta{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-    }
-    @media (min-width:520px){
-      .cta{ grid-template-columns: 1fr 1fr; }
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      width:100%;
-      padding:14px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.07);
-      color:var(--text);
-      font-weight:700;
-      text-decoration:none;
-      box-shadow: 0 14px 28px rgba(0,0,0,.22);
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-      position:relative;
-    }
-    .btn:active{ transform: translateY(1px) scale(.99); }
-    .btn:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
-
-    .btn-primary{
-      border-color: rgba(232,199,119,.35);
-      background: linear-gradient(135deg, rgba(232,199,119,.22), rgba(207,162,78,.12));
-    }
-    .btn-primary:hover{
-      background: linear-gradient(135deg, rgba(232,199,119,.26), rgba(207,162,78,.16));
-    }
-
-    .bottom-bar{
-      position:fixed; left:0; right:0; bottom:0;
-      padding:10px 12px 14px;
-      z-index:30;
-      background: linear-gradient(180deg, rgba(7,24,35,0), rgba(7,24,35,.88) 35%, rgba(7,24,35,.94));
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .bottom-inner{
-      width:min(940px, 100%);
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      padding:0 4px;
-    }
-    .mini{
-      font-size:.92rem;
-      padding:12px 12px;
-      border-radius: 14px;
-    }
-
-    .icon{width:18px; height:18px; display:inline-block}
-    .footnote{
-      margin-top:12px;
-      color:rgba(255,255,255,.62);
-      font-size:.88rem;
-      text-align:center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grey Corner • Menu Ramadan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:#061a25;}
+.hero{background:url('ramadane1.jpg') center/cover no-repeat;height:42vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
+.hero:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.hero-content{position:relative;z-index:2}
+.hero img{width:120px;margin-bottom:10px}
+h1{font-family:'Playfair Display',serif;margin:0;font-size:2rem}
+.sub{opacity:.85;margin-top:6px}
+.section{padding:18px 16px;background:#0b2a3a}
+.card{background:rgba(255,255,255,.05);border-radius:18px;padding:18px;margin-bottom:16px;border:1px solid rgba(255,255,255,.12)}
+.title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:10px}
+.price{color:#e7c46a;font-weight:600;margin-bottom:10px}
+ul{padding-left:18px;margin:8px 0}
+.bg2{background:url('ramadane2.jpg') center/cover no-repeat;padding:40px 16px;text-align:center;position:relative}
+.bg2:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.65)}
+.bg2-content{position:relative;z-index:2}
+.btn{display:block;text-align:center;background:#e7c46a;color:#061a25;text-decoration:none;font-weight:600;padding:14px;border-radius:12px;margin-top:12px}
+.btn-outline{background:transparent;border:1px solid #e7c46a;color:#e7c46a}
+.footer{padding:16px;text-align:center;font-size:.85rem;opacity:.8}
+</style>
 </head>
-
 <body>
-  <header class="top">
-    <div class="top-inner">
-      <div class="brand">
-        <small>GREY CORNER</small>
-        <strong>Menu Ramadan</strong>
-      </div>
-      <div class="pill" aria-label="Disponibilité">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Réservation • À emporter</span>
-      </div>
-    </div>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <h1>Ftour élégant, goût beldi</h1>
-      <p>Deux plats au choix, avec entrées, salée et boissons incluses.</p>
-      <div class="cta" style="position:relative; margin-top:14px;">
-        <a class="btn btn-primary" href="tel:0535940168" aria-label="Appeler Grey Corner 0535940168">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.09a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92Z"/>
-          </svg>
-          Appeler 0535940168
-        </a>
+<div class="hero">
+  <div class="hero-content">
+    <img src="LOGO GC.png" alt="Grey Corner">
+    <h1>Menu Ramadan</h1>
+    <div class="sub">Ftour élégant & beldi</div>
+  </div>
+</div>
 
-        <a class="btn" href="tel:0661446680" aria-label="Appeler Grey Corner 0661446680">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.09a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92Z"/>
-          </svg>
-          Appeler 0661446680
-        </a>
-
-        <button id="btnShare" class="btn" type="button" aria-label="Partager sur WhatsApp">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
-          </svg>
-          Partager WhatsApp
-        </button>
-
-        <a id="btnWhatsAppDirect" class="btn" href="#" target="_blank" rel="noopener" aria-label="Partager directement sur WhatsApp">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 8a6 6 0 0 1 0 8l-1.5-1.5a4 4 0 0 0 0-5z"/>
-            <path d="M19 5a10 10 0 0 1 0 14l-1.5-1.5a8 8 0 0 0 0-11z"/>
-            <path d="M12 12l9-9M21 3h-6m6 0v6"/>
-          </svg>
-          Ouvrir WhatsApp
-        </a>
-      </div>
-
-      <div class="footnote">Prix et contenu selon le menu Ramadan Grey Corner. :contentReference[oaicite:0]{index=0}</div>
-    </section>
-
-    <section class="grid" aria-label="Plats principaux">
-      <article class="card">
-        <h2>
-          Mquila • Fruits de mer
-          <span class="badge">125 DH</span>
-        </h2>
-        <p class="muted" style="margin:0 0 10px; position:relative;">Plat principal au choix</p>
-        <div class="divider"></div>
-
-        <p style="margin:0 0 8px; font-weight:700; position:relative;">Entrée</p>
-        <ul class="list">
-          <li>Harira</li>
-          <li>Dattes, œuf</li>
-          <li>Chabakia, briouatte amande</li>
-        </ul>
-
-        <div class="divider"></div>
-        <p style="margin:0 0 8px; font-weight:700; position:relative;">Beldi</p>
-        <ul class="list">
-          <li>Mlaoui (fromage frais & miel)</li>
-          <li>Muffin beldi</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h2>
-          Mquila • Viande hachée ou merguez
-          <span class="badge">105 DH</span>
-        </h2>
-        <p class="muted" style="margin:0 0 10px; position:relative;">Plat principal au choix</p>
-        <div class="divider"></div>
-
-        <p style="margin:0 0 8px; font-weight:700; position:relative;">Salée</p>
-        <ul class="list">
-          <li>Nem asiatique</li>
-          <li>Quiche au poulet</li>
-          <li>Mini pizza au thon</li>
-          <li>Cigare fromage</li>
-        </ul>
-
-        <div class="divider"></div>
-        <p style="margin:0 0 8px; font-weight:700; position:relative;">Boissons</p>
-        <ul class="list">
-          <li>Lait</li>
-          <li>Jus d’orange</li>
-          <li>Boisson chaude</li>
-          <li>Eau minérale</li>
-        </ul>
-
-        <div class="divider"></div>
-        <p style="margin:0 0 8px; font-weight:700; position:relative;">Option</p>
-        <p class="muted" style="margin:0; position:relative;">Salade Veggi (selon disponibilité)</p>
-      </article>
-    </section>
-  </main>
-
-  <!-- Barre fixe bas (mobile-friendly) -->
-  <div class="bottom-bar" role="navigation" aria-label="Actions rapides">
-    <div class="bottom-inner">
-      <a class="btn mini btn-primary" href="tel:0535940168">Appeler</a>
-      <a class="btn mini" id="btnWAQuick" href="#" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
+<div class="section">
+  <div class="card">
+    <div class="title">Formule Fruits de mer</div>
+    <div class="price">125 DH</div>
+    <b>Entrée</b>
+    <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
+    <b>Salée</b>
+    <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
+    <b>Beldi</b>
+    <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
+    <b>Boissons</b>
+    <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
+    <p style="opacity:.7">Plat principal : Mquila Fruits de mer</p>
   </div>
 
-  <script>
-    // Texte de partage (modifiable)
-    const shareText =
-`GREY CORNER • MENU RAMADAN
-Réservation / À emporter
-📞 0535940168 / 0661446680
+  <div class="card">
+    <div class="title">Formule Viande hachée ou merguez</div>
+    <div class="price">105 DH</div>
+    <b>Entrée</b>
+    <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
+    <b>Salée</b>
+    <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
+    <b>Beldi</b>
+    <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
+    <b>Boissons</b>
+    <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
+    <p style="opacity:.7">Plat principal : Mquila Viande hachée ou merguez</p>
+  </div>
+</div>
 
-🍽️ Mquila Fruits de mer — 125 DH
-🍽️ Mquila Viande hachée ou merguez — 105 DH
+<div class="bg2">
+ <div class="bg2-content">
+   <h2 style="font-family:Playfair Display,serif;margin:0">Réserver maintenant</h2>
+   <a class="btn" href="tel:0535940168">Appeler 0535940168</a>
+   <a class="btn btn-outline" id="waBtn" href="#">Partager WhatsApp</a>
+ </div>
+</div>
 
-Bon Ramadan.`;
+<div class="footer">Grey Corner • Ramadan Kareem</div>
 
-    function waLink(text){
-      return "https://wa.me/?text=" + encodeURIComponent(text);
-    }
+<script>
+const txt=`GREY CORNER - MENU RAMADAN\n0535940168 / 0661446680`;
+document.getElementById('waBtn').href="https://wa.me/?text="+encodeURIComponent(txt);
+</script>
 
-    // Liens WhatsApp directs
-    const waDirect = waLink(shareText);
-    document.getElementById("btnWhatsAppDirect").href = waDirect;
-    document.getElementById("btnWAQuick").href = waDirect;
-
-    // Bouton partage "smart":
-    // - sur mobile: utilise Web Share si dispo, sinon ouvre WhatsApp
-    // - sur desktop: ouvre WhatsApp Web
-    document.getElementById("btnShare").addEventListener("click", async () => {
-      try{
-        if (navigator.share){
-          await navigator.share({
-            title: "Grey Corner • Menu Ramadan",
-            text: shareText
-          });
-          return;
-        }
-      } catch(e){
-        // si l'utilisateur annule, on ne force pas
-        return;
-      }
-      window.open(waDirect, "_blank", "noopener");
-    });
-  </script>
 </body>
 </html>
