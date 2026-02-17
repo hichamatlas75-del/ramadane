@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:#061a25}
-header{position:sticky;top:0;background:#061a25;border-bottom:1px solid rgba(255,255,255,.1);padding:10px 16px;display:flex;align-items:center;gap:12px;z-index:50}
+header{position:sticky;top:0;background:linear-gradient(90deg,#0d3446,#123f54);border-bottom:1px solid rgba(255,255,255,.18);padding:12px 18px;display:flex;align-items:center;gap:14px;z-index:50;box-shadow:0 8px 20px rgba(0,0,0,.35)}
 header img{height:42px}
 header span{font-family:'Playfair Display',serif;font-size:1.3rem}
 .hero{background:url('ramadane1.jpg') center/cover no-repeat;height:32vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
@@ -34,21 +33,15 @@ ul{padding-left:18px;margin:8px 0}
 #imgModal.closeable{cursor:zoom-out}
 </style>
 </head>
-<body>
-
-<header>
+<body><header>
  <img src="LOGO GC.png" alt="Grey Corner">
  <span>Menu Ramadan</span>
-</header>
-
-<div class="hero">
+</header><div class="hero">
   <div class="hero-content">
     <h1>Ftour élégant & beldi</h1>
     <div class="sub">Deux formules au choix</div>
   </div>
-</div>
-
-<div class="section">
+</div><div class="section">
   <div class="card">
     <img class="zoomable" src="ramadan2.jpg" alt="Fruits de mer">
     <div class="card-content">
@@ -64,9 +57,7 @@ ul{padding-left:18px;margin:8px 0}
       <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
       <p style="opacity:.7">Plat principal : Mquila Fruits de mer</p>
     </div>
-  </div>
-
-  <div class="card">
+  </div>  <div class="card">
     <img class="zoomable" src="ramadan1.jpg" alt="Viande hachée merguez">
     <div class="card-content">
       <div class="title">Formule Viande hachée ou merguez</div>
@@ -82,21 +73,13 @@ ul{padding-left:18px;margin:8px 0}
       <p style="opacity:.7">Plat principal : Mquila Viande hachée ou merguez</p>
     </div>
   </div>
-</div>
-
-<div class="bg2">
+</div><div class="bg2">
  <div class="bg2-content">
    <h2 style="font-family:Playfair Display,serif;margin:0">Réserver maintenant</h2>
    <a class="btn" href="tel:0535940168">Appeler 0535940168</a>
    <a class="btn btn-outline" id="waBtn" href="#">Partager WhatsApp</a>
  </div>
-</div>
-
-<div id="imgModal" class="closeable"><img src="" alt="preview"></div>
-
-<div class="footer">Grey Corner • Ramadan Kareem</div>
-
-<script>
+</div><div id="imgModal" class="closeable"><img src="" alt="preview"></div><div class="footer">Grey Corner • Ramadan Kareem</div><script>
 const txt=`GREY CORNER - MENU RAMADAN\n0535940168 / 0661446680`;
 document.getElementById('waBtn').href="https://wa.me/?text="+encodeURIComponent(txt);
 
@@ -107,7 +90,5 @@ document.querySelectorAll('.zoomable').forEach(img=>{
  img.addEventListener('click',()=>{modal.style.display='flex';modalImg.src=img.src});
 });
 modal.addEventListener('click',()=>modal.style.display='none');
-</script>
-
-</body>
+</script></body>
 </html>
