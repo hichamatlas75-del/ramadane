@@ -6,82 +6,122 @@
 <title>Grey Corner • Menu Ramadan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:#061a25}
+:root{--bg:#061a25;--panel:#0b2a3a;--gold:#e7c46a;--stroke:rgba(255,255,255,.12)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:var(--bg)}
+
+/* Layout */
+.container{width:min(1100px,100%);margin:0 auto;padding:18px 16px}
+.section{background:var(--panel)}
+.cards{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width: 920px){
+  .cards{grid-template-columns:1fr 1fr;align-items:stretch}
+}
+
+/* Header */
 header{position:sticky;top:0;background:linear-gradient(90deg,#0d3446,#123f54);border-bottom:1px solid rgba(255,255,255,.18);padding:12px 18px;display:flex;align-items:center;gap:14px;z-index:50;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-header img{height:42px}
+header img{height:42px;width:auto;flex:0 0 auto}
 header span{font-family:'Playfair Display',serif;font-size:1.3rem}
-.hero{background:url('ramadane1.jpg') center/cover no-repeat;height:32vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
-.hero:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
-.hero-content{position:relative;z-index:2}
-h1{font-family:'Playfair Display',serif;margin:0;font-size:2rem}
-.sub{opacity:.85;margin-top:6px}
-.section{padding:18px 16px;background:#0b2a3a}
-.card{background:rgba(255,255,255,.05);border-radius:18px;margin-bottom:18px;border:1px solid rgba(255,255,255,.12);overflow:hidden}
-.card img{width:100%;height:170px;object-fit:cover}
+header small{display:block}
+
+/* Cards */
+.card{background:rgba(255,255,255,.05);border-radius:18px;border:1px solid var(--stroke);overflow:hidden;min-height:100%}
+.card img{width:100%;height:200px;object-fit:cover;display:block}
+@media (min-width: 920px){
+  .card img{height:260px}
+}
 .card-content{padding:18px}
-.title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
-.price{color:#e7c46a;font-weight:600;margin-bottom:10px}
+.title{font-family:'Playfair Display',serif;font-size:1.35rem;margin:0 0 6px}
+.price{color:var(--gold);font-weight:600;margin:0 0 10px;font-size:1.05rem}
 ul{padding-left:18px;margin:8px 0}
-.bg2{background:url('ramadane2.jpg') center/cover no-repeat;padding:40px 16px;text-align:center;position:relative}
+
+/* CTA block */
+.bg2{background:url('ramadane2.jpg') center/cover no-repeat;position:relative}
 .bg2:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.65)}
-.bg2-content{position:relative;z-index:2}
-.btn{display:block;text-align:center;background:#e7c46a;color:#061a25;text-decoration:none;font-weight:600;padding:14px;border-radius:12px;margin-top:12px}
-.btn-outline{background:transparent;border:1px solid #e7c46a;color:#e7c46a}
+.bg2-content{position:relative;z-index:2;text-align:center}
+
+.btn-row{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+@media (min-width: 560px){
+  .btn-row{grid-template-columns:1fr 1fr}
+}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--gold);color:#061a25;text-decoration:none;font-weight:600;padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,0);}
+.btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+
 .footer{padding:16px;text-align:center;font-size:.85rem;opacity:.8}
+
+/* Fullscreen image viewer */
 .zoomable{cursor:zoom-in}
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:1000}
-#imgModal img{max-width:95%;max-height:95%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+#imgModal img{max-width:96vw;max-height:96vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.8)}
 #imgModal.closeable{cursor:zoom-out}
+
+/* Not used anymore */
 .hero{display:none!important}
 </style>
 </head>
 <body>
 
 <header>
- <img src="LOGO GC.png" alt="Grey Corner">
- <div style="display:flex;flex-direction:column;line-height:1.1"><span>Menu Ramadan</span><small style="opacity:.7">Ftour élégant & beldi</small></div>
+  <img src="LOGO GC.png" alt="Grey Corner">
+  <div style="display:flex;flex-direction:column;line-height:1.1">
+    <span>Menu Ramadan</span>
+    <small style="opacity:.7">Ftour élégant & beldi</small>
+  </div>
 </header>
 
+<main class="section">
+  <div class="container">
+    <div class="cards">
+      <div class="card">
+        <img class="zoomable" src="ramadan1.jpg" alt="Viande hachée merguez">
+        <div class="card-content">
+          <h3 class="title">Formule Viande hachée ou merguez</h3>
+          <div class="price">105 DH</div>
+          <b>Entrée</b>
+          <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li><li>Salade veggi</li></ul>
+          <b>Salée</b>
+          <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
+          <b>Beldi</b>
+          <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
+          <b>Boissons</b>
+          <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
+          <p style="opacity:.7;margin:10px 0 0">Plat principal : Mquila Viande hachée ou merguez</p>
+        </div>
+      </div>
 
-  </div>
-</div>
-
-<div class="section">
-  <div class="card">
-    <img class="zoomable" src="ramadan1.jpg" alt="Viande hachée merguez">
-    <div class="card-content">
-      <div class="title">Formule Viande hachée ou merguez</div>
-      <div class="price">105 DH</div>
-      <b>Entrée</b>
-      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li><li>Salade veggi</li></ul>
-      <b>Salée</b>
-      <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
-      <b>Beldi</b>
-      <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
-      <b>Boissons</b>
-      <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
-      <p style="opacity:.7">Plat principal : Mquila Viande hachée ou merguez</p>
+      <div class="card">
+        <img class="zoomable" src="ramadan2.jpg" alt="Fruits de mer">
+        <div class="card-content">
+          <h3 class="title">Formule Fruits de mer</h3>
+          <div class="price">125 DH</div>
+          <b>Entrée</b>
+          <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li><li>Salade veggi</li></ul>
+          <b>Salée</b>
+          <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
+          <b>Beldi</b>
+          <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
+          <b>Boissons</b>
+          <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
+          <p style="opacity:.7;margin:10px 0 0">Plat principal : Mquila Fruits de mer</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
- 
- <div class="card">
-    <img class="zoomable" src="ramadan2.jpg" alt="Fruits de mer">
-    <div class="card-content">
-      <div class="title">Formule Fruits de mer</div>
-      <div class="price">125 DH</div>
-      <b>Entrée</b>
-      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li><li>Salade veggi</li></ul>
-      <b>Salée</b>
-      <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
-      <b>Beldi</b>
-      <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
-      <b>Boissons</b>
-      <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
-      <p style="opacity:.7">Plat principal : Mquila Fruits de mer</p>
+</main>
+
+<section class="bg2">
+  <div class="container">
+    <div class="bg2-content">
+      <h2 style="font-family:Playfair Display,serif;margin:0">Réserver maintenant</h2>
+      <div class="btn-row">
+        <a class="btn" href="tel:0535940168">Appeler 0535940168</a>
+        <a class="btn btn-outline" id="waBtn" href="#">Partager WhatsApp</a>
+      </div>
     </div>
   </div>
-<div class="bg2">
+</section>
+
+<div class="container">
  <div class="bg2-content">
    <h2 style="font-family:Playfair Display,serif;margin:0">Réserver maintenant</h2>
    <a class="btn" href="tel:0535940168">Appeler 0535940168</a>
