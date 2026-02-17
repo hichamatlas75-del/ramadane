@@ -28,6 +28,10 @@ ul{padding-left:18px;margin:8px 0}
 .btn{display:block;text-align:center;background:#e7c46a;color:#061a25;text-decoration:none;font-weight:600;padding:14px;border-radius:12px;margin-top:12px}
 .btn-outline{background:transparent;border:1px solid #e7c46a;color:#e7c46a}
 .footer{padding:16px;text-align:center;font-size:.85rem;opacity:.8}
+.zoomable{cursor:zoom-in}
+#imgModal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:1000}
+#imgModal img{max-width:95%;max-height:95%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+#imgModal.closeable{cursor:zoom-out}
 </style>
 </head>
 <body>
@@ -46,7 +50,7 @@ ul{padding-left:18px;margin:8px 0}
 
 <div class="section">
   <div class="card">
-    <img src="ramadan2.jpg" alt="Fruits de mer">
+    <img class="zoomable" src="ramadan2.jpg" alt="Fruits de mer">
     <div class="card-content">
       <div class="title">Formule Fruits de mer</div>
       <div class="price">125 DH</div>
@@ -63,7 +67,7 @@ ul{padding-left:18px;margin:8px 0}
   </div>
 
   <div class="card">
-    <img src="ramadan1.jpg" alt="Viande hachée merguez">
+    <img class="zoomable" src="ramadan1.jpg" alt="Viande hachée merguez">
     <div class="card-content">
       <div class="title">Formule Viande hachée ou merguez</div>
       <div class="price">105 DH</div>
@@ -88,11 +92,21 @@ ul{padding-left:18px;margin:8px 0}
  </div>
 </div>
 
+<div id="imgModal" class="closeable"><img src="" alt="preview"></div>
+
 <div class="footer">Grey Corner • Ramadan Kareem</div>
 
 <script>
 const txt=`GREY CORNER - MENU RAMADAN\n0535940168 / 0661446680`;
 document.getElementById('waBtn').href="https://wa.me/?text="+encodeURIComponent(txt);
+
+// Fullscreen image viewer
+const modal=document.getElementById('imgModal');
+const modalImg=modal.querySelector('img');
+document.querySelectorAll('.zoomable').forEach(img=>{
+ img.addEventListener('click',()=>{modal.style.display='flex';modalImg.src=img.src});
+});
+modal.addEventListener('click',()=>modal.style.display='none');
 </script>
 
 </body>
