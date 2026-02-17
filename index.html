@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -34,18 +35,25 @@ ul{padding-left:18px;margin:8px 0}
 .hero{display:none!important}
 </style>
 </head>
-<body><header>
+<body>
+
+<header>
  <img src="LOGO GC.png" alt="Grey Corner">
  <div style="display:flex;flex-direction:column;line-height:1.1"><span>Menu Ramadan</span><small style="opacity:.7">Ftour élégant & beldi</small></div>
-</header>  </div>
-</div><div class="section">
+</header>
+
+
+  </div>
+</div>
+
+<div class="section">
   <div class="card">
     <img class="zoomable" src="ramadan2.jpg" alt="Fruits de mer">
     <div class="card-content">
       <div class="title">Formule Fruits de mer</div>
       <div class="price">125 DH</div>
       <b>Entrée</b>
-      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
+      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li><li>Salade veggi</li></ul>
       <b>Salée</b>
       <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
       <b>Beldi</b>
@@ -54,13 +62,15 @@ ul{padding-left:18px;margin:8px 0}
       <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
       <p style="opacity:.7">Plat principal : Mquila Fruits de mer</p>
     </div>
-  </div>  <div class="card">
+  </div>
+
+  <div class="card">
     <img class="zoomable" src="ramadan1.jpg" alt="Viande hachée merguez">
     <div class="card-content">
       <div class="title">Formule Viande hachée ou merguez</div>
       <div class="price">105 DH</div>
       <b>Entrée</b>
-      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
+      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li><li>Salade veggi</li></ul>
       <b>Salée</b>
       <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
       <b>Beldi</b>
@@ -70,13 +80,21 @@ ul{padding-left:18px;margin:8px 0}
       <p style="opacity:.7">Plat principal : Mquila Viande hachée ou merguez</p>
     </div>
   </div>
-</div><div class="bg2">
+</div>
+
+<div class="bg2">
  <div class="bg2-content">
    <h2 style="font-family:Playfair Display,serif;margin:0">Réserver maintenant</h2>
    <a class="btn" href="tel:0535940168">Appeler 0535940168</a>
    <a class="btn btn-outline" id="waBtn" href="#">Partager WhatsApp</a>
  </div>
-</div><div id="imgModal" class="closeable"><img src="" alt="preview"></div><div class="footer">Grey Corner • Ramadan Kareem</div><script>
+</div>
+
+<div id="imgModal" class="closeable"><img src="" alt="preview"></div>
+
+<div class="footer">Grey Corner • Ramadan Kareem</div>
+
+<script>
 const txt=`GREY CORNER - MENU RAMADAN\n0535940168 / 0661446680`;
 document.getElementById('waBtn').href="https://wa.me/?text="+encodeURIComponent(txt);
 
@@ -87,5 +105,7 @@ document.querySelectorAll('.zoomable').forEach(img=>{
  img.addEventListener('click',()=>{modal.style.display='flex';modalImg.src=img.src});
 });
 modal.addEventListener('click',()=>modal.style.display='none');
-</script></body>
+</script>
+
+</body>
 </html>
