@@ -6,16 +6,20 @@
 <title>Grey Corner • Menu Ramadan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:#061a25;}
-.hero{background:url('ramadane1.jpg') center/cover no-repeat;height:42vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
+body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:#061a25}
+header{position:sticky;top:0;background:#061a25;border-bottom:1px solid rgba(255,255,255,.1);padding:10px 16px;display:flex;align-items:center;gap:12px;z-index:50}
+header img{height:42px}
+header span{font-family:'Playfair Display',serif;font-size:1.3rem}
+.hero{background:url('ramadane1.jpg') center/cover no-repeat;height:32vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
 .hero:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
 .hero-content{position:relative;z-index:2}
-.hero img{width:120px;margin-bottom:10px}
 h1{font-family:'Playfair Display',serif;margin:0;font-size:2rem}
 .sub{opacity:.85;margin-top:6px}
 .section{padding:18px 16px;background:#0b2a3a}
-.card{background:rgba(255,255,255,.05);border-radius:18px;padding:18px;margin-bottom:16px;border:1px solid rgba(255,255,255,.12)}
-.title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:10px}
+.card{background:rgba(255,255,255,.05);border-radius:18px;margin-bottom:18px;border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.card img{width:100%;height:170px;object-fit:cover}
+.card-content{padding:18px}
+.title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
 .price{color:#e7c46a;font-weight:600;margin-bottom:10px}
 ul{padding-left:18px;margin:8px 0}
 .bg2{background:url('ramadane2.jpg') center/cover no-repeat;padding:40px 16px;text-align:center;position:relative}
@@ -28,41 +32,51 @@ ul{padding-left:18px;margin:8px 0}
 </head>
 <body>
 
+<header>
+ <img src="LOGO GC.png" alt="Grey Corner">
+ <span>Menu Ramadan</span>
+</header>
+
 <div class="hero">
   <div class="hero-content">
-    <img src="LOGO GC.png" alt="Grey Corner">
-    <h1>Menu Ramadan</h1>
-    <div class="sub">Ftour élégant & beldi</div>
+    <h1>Ftour élégant & beldi</h1>
+    <div class="sub">Deux formules au choix</div>
   </div>
 </div>
 
 <div class="section">
   <div class="card">
-    <div class="title">Formule Fruits de mer</div>
-    <div class="price">125 DH</div>
-    <b>Entrée</b>
-    <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
-    <b>Salée</b>
-    <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
-    <b>Beldi</b>
-    <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
-    <b>Boissons</b>
-    <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
-    <p style="opacity:.7">Plat principal : Mquila Fruits de mer</p>
+    <img src="ramadane1.jpg" alt="Fruits de mer">
+    <div class="card-content">
+      <div class="title">Formule Fruits de mer</div>
+      <div class="price">125 DH</div>
+      <b>Entrée</b>
+      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
+      <b>Salée</b>
+      <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
+      <b>Beldi</b>
+      <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
+      <b>Boissons</b>
+      <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
+      <p style="opacity:.7">Plat principal : Mquila Fruits de mer</p>
+    </div>
   </div>
 
   <div class="card">
-    <div class="title">Formule Viande hachée ou merguez</div>
-    <div class="price">105 DH</div>
-    <b>Entrée</b>
-    <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
-    <b>Salée</b>
-    <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
-    <b>Beldi</b>
-    <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
-    <b>Boissons</b>
-    <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
-    <p style="opacity:.7">Plat principal : Mquila Viande hachée ou merguez</p>
+    <img src="ramadane2.jpg" alt="Viande hachée merguez">
+    <div class="card-content">
+      <div class="title">Formule Viande hachée ou merguez</div>
+      <div class="price">105 DH</div>
+      <b>Entrée</b>
+      <ul><li>Harira</li><li>Dattes & oeuf</li><li>Chabakia & briouatte amande</li></ul>
+      <b>Salée</b>
+      <ul><li>Nem asiatique</li><li>Quiche poulet</li><li>Mini pizza thon</li><li>Cigare fromage</li></ul>
+      <b>Beldi</b>
+      <ul><li>Mlaoui fromage & miel</li><li>Muffin beldi</li></ul>
+      <b>Boissons</b>
+      <ul><li>Lait</li><li>Jus d’orange</li><li>Boisson chaude</li><li>Eau minérale</li></ul>
+      <p style="opacity:.7">Plat principal : Mquila Viande hachée ou merguez</p>
+    </div>
   </div>
 </div>
 
