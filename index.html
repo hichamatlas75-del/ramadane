@@ -5,419 +5,857 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Grey Corner • Menu Ramadan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-:root{--bg:#061a25;--panel:#0b2a3a;--gold:#e7c46a;--stroke:rgba(255,255,255,.12)}
-*{box-sizing:border-box}
-body{margin:0;font-family:Poppins,sans-serif;color:#fff;background:var(--bg)}
-
-/* Layout */
-.container{width:min(1100px,100%);margin:0 auto;padding:18px 16px}
-.section{background:var(--panel)}
-.cards{display:grid;grid-template-columns:1fr;gap:18px}
-@media (min-width: 920px){
-  .cards{grid-template-columns:1fr 1fr;align-items:stretch}
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root{
+  --bg:#060d14;
+  --surface:#0a1a27;
+  --card:#0d2035;
+  --gold:#c9975a;
+  --gold-light:#e8bf8a;
+  --gold-dim:rgba(201,151,90,.18);
+  --stroke:rgba(201,151,90,.22);
+  --text:#e8ddd0;
+  --text-dim:#8a9baa;
+  --white:rgba(255,255,255,.92);
+  --shadow:0 24px 64px rgba(0,0,0,.55);
 }
 
-/* Header */
+*, *::before, *::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Poppins,sans-serif;
+  font-size:15px;
+  color:var(--text);
+  background:var(--bg);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ═══════════════════════════════════════
+   ORNAMENT BACKGROUND
+═══════════════════════════════════════ */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(201,151,90,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 85% 85%, rgba(201,151,90,.04) 0%, transparent 55%);
+  pointer-events:none;z-index:0;
+}
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
 header{
-  position:sticky;top:0;
-  background:linear-gradient(90deg,#0d3446,#123f54);
-  border-bottom:1px solid rgba(255,255,255,.18);
-  padding:14px 18px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  z-index:50;box-shadow:0 8px 20px rgba(0,0,0,.35)
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,13,20,.88);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid var(--stroke);
+  padding:0 20px;
+  height:70px;
+  display:flex;align-items:center;justify-content:space-between;
 }
-.header-left{display:flex;align-items:center;gap:10px}
-header img{height:56px;width:auto}
-header span{font-family:'Playfair Display',serif;font-size:1.3rem}
-header small{display:block}
 
-/* Language switch */
+.header-left{display:flex;align-items:center;gap:14px}
+
+header img{
+  height:52px;width:auto;
+  filter:drop-shadow(0 2px 8px rgba(201,151,90,.3));
+}
+
+.header-text{line-height:1.15}
+.header-text .title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;font-weight:600;
+  color:var(--gold-light);
+  letter-spacing:.04em;
+}
+.header-text .sub{
+  font-size:.75rem;font-weight:300;
+  color:var(--text-dim);letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* Lang switch */
 .lang{
-  display:flex;gap:8px;align-items:center;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.14);
-  padding:6px;border-radius:12px;
+  display:flex;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--stroke);
+  border-radius:12px;
+  padding:5px;gap:4px;
 }
 .lang button{
   appearance:none;border:0;cursor:pointer;
-  padding:8px 10px;border-radius:10px;
-  background:transparent;color:rgba(255,255,255,.78);
-  font-weight:600;font-size:.85rem;
-  transition:.2s ease;
+  width:42px;height:34px;border-radius:9px;
+  background:transparent;
+  color:var(--text-dim);
+  font-family:Poppins,sans-serif;
+  font-weight:600;font-size:.8rem;
+  letter-spacing:.05em;
+  transition:all .25s ease;
 }
 .lang button.active{
-  background:rgba(231,196,106,.18);
-  color:var(--gold);
-  box-shadow:inset 0 0 0 1px rgba(231,196,106,.35);
+  background:linear-gradient(135deg,rgba(201,151,90,.28),rgba(232,191,138,.14));
+  color:var(--gold-light);
+  box-shadow:inset 0 0 0 1px rgba(201,151,90,.4);
 }
-.lang button:focus{outline:2px solid rgba(231,196,106,.35);outline-offset:2px}
+.lang button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
-/* Cards */
-.card{background:rgba(255,255,255,.05);border-radius:18px;border:1px solid var(--stroke);overflow:hidden}
-.card img{width:100%;height:200px;object-fit:cover;display:block}
-@media (min-width: 920px){ .card img{height:260px} }
-.card-content{padding:18px}
-.title{font-family:'Playfair Display',serif;font-size:1.35rem;margin:0 0 6px}
-.price{color:var(--gold);font-weight:600;margin:0 0 10px;font-size:1.05rem}
-ul{padding-left:18px;margin:8px 0}
-
-/* CTA */
-.bg2{background:url('ramadane2.jpg') center/cover no-repeat;position:relative}
-.bg2:after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.65)}
-.bg2-content{position:relative;z-index:2;text-align:center}
-
-/* Buttons */
-.btn-row{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
-@media (min-width: 560px){ .btn-row{grid-template-columns:1fr 1fr} }
-
-.btn{
-  display:flex;align-items:center;justify-content:center;
-  background:var(--gold);
-  color:#061a25;
-  text-decoration:none;
-  font-weight:600;
-  padding:14px;
-  border-radius:12px;
+/* ═══════════════════════════════════════
+   HERO BANNER
+═══════════════════════════════════════ */
+.hero{
+  position:relative;
+  padding:56px 20px 48px;
+  text-align:center;
+  overflow:hidden;
 }
 
-.btn-outline{
-  background:transparent;
-  border:1px solid var(--gold);
-  color:var(--gold);
+/* Geometric ornament rings */
+.hero::before,.hero::after{
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(201,151,90,.1);
+  pointer-events:none;
+}
+.hero::before{
+  width:500px;height:500px;
+  top:-250px;left:50%;transform:translateX(-50%);
+}
+.hero::after{
+  width:320px;height:320px;
+  top:-160px;left:50%;transform:translateX(-50%);
 }
 
-/* PDF button discreet */
-.btn-pdf{
-  display:inline-flex;
-  align-items:center;
+.crescent{
+  font-size:2.4rem;
+  margin-bottom:12px;
+  display:block;
+  animation:crescent-glow 3s ease-in-out infinite alternate;
+}
+@keyframes crescent-glow{
+  from{filter:drop-shadow(0 0 8px rgba(201,151,90,.4))}
+  to{filter:drop-shadow(0 0 20px rgba(201,151,90,.8))}
+}
+
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,6vw,3.2rem);
+  font-weight:700;
+  color:var(--gold-light);
+  letter-spacing:.06em;
+  line-height:1.1;
+}
+
+.hero-divider{
+  display:flex;align-items:center;gap:14px;
   justify-content:center;
-  padding:8px 14px;
-  font-size:.85rem;
-  border-radius:10px;
-  background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.75);
-  border:1px solid rgba(255,255,255,.15);
+  margin:16px 0;
+}
+.hero-divider span{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero-divider .diamond{
+  width:6px;height:6px;
+  background:var(--gold);
+  transform:rotate(45deg);
+  flex-shrink:0;
+}
+
+.hero-tagline{
+  font-size:.85rem;font-weight:300;
+  color:var(--text-dim);letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* ═══════════════════════════════════════
+   CONTAINER / LAYOUT
+═══════════════════════════════════════ */
+.container{width:min(1060px,100%);margin:0 auto;padding:0 16px}
+
+/* ═══════════════════════════════════════
+   TOP BAR (PDF + hint)
+═══════════════════════════════════════ */
+.top-bar{
+  display:flex;justify-content:flex-end;align-items:center;
+  padding-bottom:20px;
+}
+
+.btn-pdf{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 18px;border-radius:10px;
+  background:transparent;
+  border:1px solid rgba(201,151,90,.3);
+  color:var(--text-dim);
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
   text-decoration:none;
-  transition:.2s ease;
+  transition:all .25s ease;
+}
+.btn-pdf::before{
+  content:'⬇';font-size:.85rem;
+  transition:transform .25s;
 }
 .btn-pdf:hover{
-  color:var(--gold);
+  color:var(--gold-light);
   border-color:var(--gold);
+  background:var(--gold-dim);
+}
+.btn-pdf:hover::before{transform:translateY(2px)}
+
+/* ═══════════════════════════════════════
+   CARDS GRID
+═══════════════════════════════════════ */
+.cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+}
+@media(min-width:860px){
+  .cards{grid-template-columns:1fr 1fr;align-items:start}
 }
 
-.footer{padding:16px;text-align:center;font-size:.85rem;opacity:.8}
+/* ═══════════════════════════════════════
+   CARD
+═══════════════════════════════════════ */
+.card{
+  background:var(--card);
+  border:1px solid var(--stroke);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transform:translateY(30px);
+  opacity:0;
+  transition:transform .55s cubic-bezier(.22,.68,0,1.2), opacity .45s ease, box-shadow .3s ease;
+}
+.card.visible{transform:translateY(0);opacity:1}
+.card:hover{
+  box-shadow:0 32px 80px rgba(0,0,0,.65), 0 0 0 1px rgba(201,151,90,.32);
+  transform:translateY(-3px);
+}
+.card.visible:hover{transform:translateY(-3px)}
 
-/* Image viewer */
-.zoomable{cursor:zoom-in}
+/* Card image */
+.card-img-wrap{
+  position:relative;overflow:hidden;
+  height:220px;
+}
+@media(min-width:860px){.card-img-wrap{height:260px}}
+.card-img-wrap img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  cursor:zoom-in;
+  transition:transform .55s ease, filter .3s ease;
+}
+.card:hover .card-img-wrap img{transform:scale(1.05)}
+
+/* Image overlay gradient */
+.card-img-wrap::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:70px;
+  background:linear-gradient(transparent,var(--card));
+  pointer-events:none;
+}
+
+/* Price badge */
+.price-badge{
+  position:absolute;bottom:12px;right:14px;
+  z-index:2;
+  background:rgba(6,13,20,.8);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(10px);
+  padding:6px 14px;border-radius:30px;
+  font-weight:600;
+  font-size:1rem;
+  color:var(--gold-light);
+  letter-spacing:.02em;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+
+/* Zoom icon */
+.zoom-icon{
+  position:absolute;top:12px;right:12px;z-index:2;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(6,13,20,.6);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;
+  opacity:0;
+  transition:opacity .25s;
+  pointer-events:none;
+}
+.card:hover .zoom-icon{opacity:1}
+
+/* Card body */
+.card-body{padding:22px}
+
+.card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;
+  font-weight:700;
+  color:var(--gold-light);
+  margin-bottom:18px;
+  line-height:1.25;
+}
+
+/* Sections */
+.menu-section{margin-bottom:14px}
+.menu-section:last-child{margin-bottom:0}
+
+.section-label{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:8px;
+}
+.section-label span{
+  font-size:.72rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:var(--gold);
+}
+.section-label::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(201,151,90,.35),transparent);
+}
+
+.menu-items{
+  display:flex;flex-direction:column;gap:4px;
+  padding-left:0;list-style:none;
+}
+.menu-items li{
+  display:flex;align-items:center;gap:8px;
+  font-size:.875rem;font-weight:300;
+  color:rgba(232,221,208,.8);
+  padding:3px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.menu-items li:last-child{border-bottom:0}
+.menu-items li::before{
+  content:'';
+  width:4px;height:4px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  opacity:.6;
+}
+
+/* ═══════════════════════════════════════
+   CTA SECTION
+═══════════════════════════════════════ */
+.cta-section{
+  margin-top:36px;
+  position:relative;overflow:hidden;
+  border-radius:20px;
+  border:1px solid var(--stroke);
+  min-height:220px;
+}
+
+.cta-bg{
+  position:absolute;inset:0;
+  background-image:url('ramadane2.jpg');
+  background-size:cover;background-position:center;
+  transition:transform .5s ease;
+}
+.cta-section:hover .cta-bg{transform:scale(1.03)}
+
+.cta-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(6,13,20,.88) 0%,rgba(13,32,53,.82) 100%);
+}
+
+.cta-content{
+  position:relative;z-index:2;
+  padding:44px 28px;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+
+.cta-content h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,4vw,2.2rem);
+  font-weight:700;
+  color:var(--gold-light);
+  letter-spacing:.04em;
+}
+.cta-content .sub{
+  font-size:.82rem;font-weight:300;
+  color:var(--text-dim);letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-top:-12px;
+}
+
+.btn-row{
+  display:grid;grid-template-columns:1fr;
+  gap:12px;width:100%;max-width:460px;
+}
+@media(min-width:480px){.btn-row{grid-template-columns:1fr 1fr}}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 20px;border-radius:12px;
+  font-family:Poppins,sans-serif;
+  font-weight:600;font-size:.88rem;
+  letter-spacing:.03em;
+  text-decoration:none;
+  cursor:pointer;
+  transition:all .25s ease;
+  border:none;
+}
+.btn-gold{
+  background:linear-gradient(135deg,#c9975a,#e8bf8a);
+  color:#060d14;
+  box-shadow:0 6px 24px rgba(201,151,90,.4);
+}
+.btn-gold:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 32px rgba(201,151,90,.55);
+}
+.btn-ghost{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(201,151,90,.38);
+  color:var(--gold-light);
+}
+.btn-ghost:hover{
+  background:var(--gold-dim);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{
+  margin-top:0;
+  padding:28px 16px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+footer p{
+  font-size:.82rem;font-weight:300;
+  color:var(--text-dim);letter-spacing:.06em;
+}
+footer .dot{
+  display:inline-block;
+  width:3px;height:3px;border-radius:50%;
+  background:var(--gold);
+  vertical-align:middle;margin:0 8px;
+}
+
+/* ═══════════════════════════════════════
+   IMAGE MODAL
+═══════════════════════════════════════ */
 #imgModal{
   position:fixed;inset:0;
-  background:rgba(0,0,0,.92);
+  background:rgba(0,0,0,.93);
   display:none;align-items:center;justify-content:center;
-  z-index:1000
+  z-index:1000;
+  cursor:zoom-out;
+  padding:16px;
+}
+#imgModal.open{display:flex;animation:modal-in .25s ease}
+@keyframes modal-in{
+  from{opacity:0}to{opacity:1}
 }
 #imgModal img{
-  max-width:96vw;max-height:96vh;
-  border-radius:12px;
-  box-shadow:0 20px 60px rgba(0,0,0,.8)
+  max-width:100%;max-height:90vh;
+  border-radius:14px;
+  box-shadow:0 30px 80px rgba(0,0,0,.85);
+  pointer-events:none;
 }
+#modalClose{
+  position:absolute;top:18px;right:20px;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;font-size:1.3rem;line-height:1;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s ease;appearance:none;
+}
+#modalClose:hover{background:rgba(255,255,255,.2)}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+.fade-up{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* Stagger delays */
+.card:nth-child(1){transition-delay:.05s}
+.card:nth-child(2){transition-delay:.18s}
+
+/* ═══════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════ */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(201,151,90,.3);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,151,90,.55)}
 </style>
 </head>
 <body>
 
+<!-- ══ HEADER ══════════════════════════ -->
 <header>
   <div class="header-left">
     <img src="LOGO GC.png" alt="Grey Corner">
-    <div style="display:flex;flex-direction:column;line-height:1.1">
-      <span id="hdrTitle">Menu Ramadan</span>
-      <small id="hdrSub" style="opacity:.7">Ftour élégant & beldi</small>
+    <div class="header-text">
+      <div class="title" id="hdrTitle">Menu Ramadan</div>
+      <div class="sub" id="hdrSub">Ftour élégant &amp; beldi</div>
     </div>
   </div>
 
-  <!-- ✅ Choix langue -->
-  <div class="lang" aria-label="Language switch">
-    <button type="button" id="btnFR" class="active">FR</button>
-    <button type="button" id="btnEN">EN</button>
+  <div class="lang" role="group" aria-label="Langue / Language">
+    <button type="button" id="btnFR" class="active" aria-pressed="true">FR</button>
+    <button type="button" id="btnEN" aria-pressed="false">EN</button>
   </div>
 </header>
 
-<main class="section">
+<!-- ══ HERO ════════════════════════════ -->
+<div class="hero fade-up">
+  <span class="crescent">🌙</span>
+  <h1 id="heroTitle">Menu Ramadan</h1>
+  <div class="hero-divider">
+    <span></span>
+    <div class="diamond"></div>
+    <span></span>
+  </div>
+  <p class="hero-tagline" id="heroSub">Ftour élégant &amp; beldi · Fès</p>
+</div>
+
+<!-- ══ MAIN ════════════════════════════ -->
+<main>
   <div class="container">
 
-    <!-- ✅ Bouton Télécharger PDF -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px">
-      <div style="opacity:.75;font-size:.9rem" id="topHint"></div>
+    <!-- PDF bar -->
+    <div class="top-bar fade-up">
       <a class="btn-pdf"
          href="https://drive.google.com/uc?export=download&id=15d3hyDGbs5izA5I5MEWLwEo-R6FXrjyI"
-         target="_blank" rel="noopener">
-         <span id="pdfBtn">Télécharger PDF</span>
+         target="_blank" rel="noopener noreferrer">
+        <span id="pdfBtn">Télécharger PDF</span>
       </a>
     </div>
 
+    <!-- Cards -->
     <div class="cards">
 
+      <!-- Card 1 -->
       <div class="card">
-        <img class="zoomable" src="ramadan1.jpg" alt="">
-        <div class="card-content">
-          <h3 class="title" id="t1">Formule Viande hachée ou merguez</h3>
-          <div class="price">105 DH</div>
-          <b id="secEntree1">Entrée</b>
-          <ul>
-            <li id="i1_1">Harira</li>
-            <li id="i1_2">Dattes & oeuf</li>
-            <li id="i1_3">Chabakia & briouatte amande</li>
-            <li id="i1_4">Salade veggi</li>
-          </ul>
-          <b id="secSalee1">Salée</b>
-          <ul>
-            <li id="i1_5">Nem asiatique</li>
-            <li id="i1_6">Quiche poulet</li>
-            <li id="i1_7">Mini pizza thon</li>
-            <li id="i1_8">Cigare fromage</li>
-          </ul>
-          <b id="secBeldi1">Beldi</b>
-          <ul>
-            <li id="i1_9">Mlaoui fromage & miel</li>
-            <li id="i1_10">Muffin beldi</li>
-          </ul>
-          <b id="secBoissons1">Boissons</b>
-          <ul>
-            <li id="i1_11">Lait</li>
-            <li id="i1_12">Jus d’orange</li>
-            <li id="i1_13">Boisson chaude</li>
-            <li id="i1_14">Eau minérale</li>
-          </ul>
+        <div class="card-img-wrap">
+          <img src="ramadan1.jpg" alt="Formule Viande hachée" class="zoomable">
+          <div class="zoom-icon">🔍</div>
+          <div class="price-badge">105 DH</div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" id="t1">Formule Viande hachée ou merguez</h3>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secEntree1">Entrée</span></div>
+            <ul class="menu-items">
+              <li id="i1_1">Harira</li>
+              <li id="i1_2">Dattes &amp; oeuf</li>
+              <li id="i1_3">Chabakia &amp; briouatte amande</li>
+              <li id="i1_4">Salade veggi</li>
+            </ul>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secSalee1">Salée</span></div>
+            <ul class="menu-items">
+              <li id="i1_5">Nem asiatique</li>
+              <li id="i1_6">Quiche poulet</li>
+              <li id="i1_7">Mini pizza thon</li>
+              <li id="i1_8">Cigare fromage</li>
+            </ul>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secBeldi1">Beldi</span></div>
+            <ul class="menu-items">
+              <li id="i1_9">Mlaoui fromage &amp; miel</li>
+              <li id="i1_10">Muffin beldi</li>
+            </ul>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secBoissons1">Boissons</span></div>
+            <ul class="menu-items">
+              <li id="i1_11">Lait</li>
+              <li id="i1_12">Jus d'orange</li>
+              <li id="i1_13">Boisson chaude</li>
+              <li id="i1_14">Eau minérale</li>
+            </ul>
+          </div>
         </div>
       </div>
 
+      <!-- Card 2 -->
       <div class="card">
-        <img class="zoomable" src="ramadan2.jpg" alt="">
-        <div class="card-content">
-          <h3 class="title" id="t2">Formule Fruits de mer</h3>
-          <div class="price">125 DH</div>
-          <b id="secEntree2">Entrée</b>
-          <ul>
-            <li id="i2_1">Harira</li>
-            <li id="i2_2">Dattes & oeuf</li>
-            <li id="i2_3">Chabakia & briouatte amande</li>
-            <li id="i2_4">Salade veggi</li>
-          </ul>
-          <b id="secSalee2">Salée</b>
-          <ul>
-            <li id="i2_5">Nem asiatique</li>
-            <li id="i2_6">Quiche poulet</li>
-            <li id="i2_7">Mini pizza thon</li>
-            <li id="i2_8">Cigare fromage</li>
-          </ul>
-          <b id="secBeldi2">Beldi</b>
-          <ul>
-            <li id="i2_9">Mlaoui fromage & miel</li>
-            <li id="i2_10">Muffin beldi</li>
-          </ul>
-          <b id="secBoissons2">Boissons</b>
-          <ul>
-            <li id="i2_11">Lait</li>
-            <li id="i2_12">Jus d’orange</li>
-            <li id="i2_13">Boisson chaude</li>
-            <li id="i2_14">Eau minérale</li>
-          </ul>
+        <div class="card-img-wrap">
+          <img src="ramadan2.jpg" alt="Formule Fruits de mer" class="zoomable">
+          <div class="zoom-icon">🔍</div>
+          <div class="price-badge">125 DH</div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" id="t2">Formule Fruits de mer</h3>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secEntree2">Entrée</span></div>
+            <ul class="menu-items">
+              <li id="i2_1">Harira</li>
+              <li id="i2_2">Dattes &amp; oeuf</li>
+              <li id="i2_3">Chabakia &amp; briouatte amande</li>
+              <li id="i2_4">Salade veggi</li>
+            </ul>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secSalee2">Salée</span></div>
+            <ul class="menu-items">
+              <li id="i2_5">Nem asiatique</li>
+              <li id="i2_6">Quiche poulet</li>
+              <li id="i2_7">Mini pizza thon</li>
+              <li id="i2_8">Cigare fromage</li>
+            </ul>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secBeldi2">Beldi</span></div>
+            <ul class="menu-items">
+              <li id="i2_9">Mlaoui fromage &amp; miel</li>
+              <li id="i2_10">Muffin beldi</li>
+            </ul>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-label"><span id="secBoissons2">Boissons</span></div>
+            <ul class="menu-items">
+              <li id="i2_11">Lait</li>
+              <li id="i2_12">Jus d'orange</li>
+              <li id="i2_13">Boisson chaude</li>
+              <li id="i2_14">Eau minérale</li>
+            </ul>
+          </div>
         </div>
       </div>
 
+    </div><!-- /cards -->
+
+    <!-- CTA -->
+    <div class="cta-section fade-up" style="margin-bottom:36px">
+      <div class="cta-bg"></div>
+      <div class="cta-overlay"></div>
+      <div class="cta-content">
+        <div>
+          <h2 id="reserveTitle">Réserver maintenant</h2>
+          <p class="sub" id="reserveSub">Grey Corner · Fès</p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-gold" id="callBtn" href="tel:0535940168">
+            📞 <span id="callLabel">0535940168</span>
+          </a>
+          <a class="btn btn-ghost" id="waBtn" href="#">
+            💬 <span id="waLabel">WhatsApp</span>
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
+
+  </div><!-- /container -->
 </main>
 
-<section class="bg2">
-  <div class="container">
-    <div class="bg2-content">
-      <h2 id="reserveTitle" style="font-family:Playfair Display,serif;margin:0">Réserver maintenant</h2>
-      <div class="btn-row">
-        <a class="btn" id="callBtn" href="tel:0535940168">Appeler 0535940168</a>
-        <a class="btn btn-outline" id="waBtn" href="#">Partager WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ══ FOOTER ══════════════════════════ -->
+<footer>
+  <p id="footerTxt">Grey Corner<span class="dot"></span>Ramadan Kareem</p>
+</footer>
 
-<div id="imgModal"><img src="" alt=""></div>
-<div class="footer" id="footerTxt">Grey Corner • Ramadan Kareem</div>
+<!-- ══ MODAL ═══════════════════════════ -->
+<div id="imgModal" role="dialog" aria-modal="true" aria-label="Image agrandie">
+  <button id="modalClose" aria-label="Fermer">✕</button>
+  <img src="" alt="Vue agrandie">
+</div>
 
+<!-- ══════════════════════════════════════
+   SCRIPTS
+════════════════════════════════════════ -->
 <script>
-/* =========================
-   ✅ Translations (FR/EN)
-   ========================= */
+/* ─── Translations ─────────────────── */
 const I18N = {
-  fr: {
-    hdrTitle: "Menu Ramadan",
-    hdrSub: "Ftour élégant & beldi",
-    topHint: "",
-    pdfBtn: "Télécharger PDF",
-    t1: "Formule Viande hachée ou merguez",
-    t2: "Formule Fruits de mer",
-    entree: "Entrée",
-    salee: "Salée",
-    beldi: "Beldi",
-    boissons: "Boissons",
-    reserveTitle: "Réserver maintenant",
-    callBtn: "Appeler 0535940168",
-    waBtn: "Partager WhatsApp",
-    footerTxt: "Grey Corner • Ramadan Kareem",
-    waText: "Menu Ramadan Grey Corner : https://ramadan-greycorner.pages.dev/",
-    items: {
-      // Card 1
-      i1_1:"Harira",
-      i1_2:"Dattes & oeuf",
-      i1_3:"Chabakia & briouatte amande",
-      i1_4:"Salade veggi",
-      i1_5:"Nem asiatique",
-      i1_6:"Quiche poulet",
-      i1_7:"Mini pizza thon",
-      i1_8:"Cigare fromage",
-      i1_9:"Mlaoui fromage & miel",
-      i1_10:"Muffin beldi",
-      i1_11:"Lait",
-      i1_12:"Jus d’orange",
-      i1_13:"Boisson chaude",
-      i1_14:"Eau minérale",
-      // Card 2
-      i2_1:"Harira",
-      i2_2:"Dattes & oeuf",
-      i2_3:"Chabakia & briouatte amande",
-      i2_4:"Salade veggi",
-      i2_5:"Nem asiatique",
-      i2_6:"Quiche poulet",
-      i2_7:"Mini pizza thon",
-      i2_8:"Cigare fromage",
-      i2_9:"Mlaoui fromage & miel",
-      i2_10:"Muffin beldi",
-      i2_11:"Lait",
-      i2_12:"Jus d’orange",
-      i2_13:"Boisson chaude",
-      i2_14:"Eau minérale"
+  fr:{
+    hdrTitle:"Menu Ramadan",
+    hdrSub:"Ftour élégant & beldi",
+    heroTitle:"Menu Ramadan",
+    heroSub:"Ftour élégant & beldi · Fès",
+    pdfBtn:"Télécharger PDF",
+    t1:"Formule Viande hachée ou merguez",
+    t2:"Formule Fruits de mer",
+    entree:"Entrée",salee:"Salée",beldi:"Beldi",boissons:"Boissons",
+    reserveTitle:"Réserver maintenant",reserveSub:"Grey Corner · Fès",
+    callLabel:"0535940168",waLabel:"WhatsApp",
+    footerTxt:"Grey Corner · Ramadan Kareem",
+    waText:"Menu Ramadan Grey Corner : https://ramadan-greycorner.pages.dev/",
+    items:{
+      i1_1:"Harira",i1_2:"Dattes & oeuf",i1_3:"Chabakia & briouatte amande",
+      i1_4:"Salade veggi",i1_5:"Nem asiatique",i1_6:"Quiche poulet",
+      i1_7:"Mini pizza thon",i1_8:"Cigare fromage",i1_9:"Mlaoui fromage & miel",
+      i1_10:"Muffin beldi",i1_11:"Lait",i1_12:"Jus d'orange",
+      i1_13:"Boisson chaude",i1_14:"Eau minérale",
+      i2_1:"Harira",i2_2:"Dattes & oeuf",i2_3:"Chabakia & briouatte amande",
+      i2_4:"Salade veggi",i2_5:"Nem asiatique",i2_6:"Quiche poulet",
+      i2_7:"Mini pizza thon",i2_8:"Cigare fromage",i2_9:"Mlaoui fromage & miel",
+      i2_10:"Muffin beldi",i2_11:"Lait",i2_12:"Jus d'orange",
+      i2_13:"Boisson chaude",i2_14:"Eau minérale"
     }
   },
-  en: {
-    hdrTitle: "Ramadan Menu",
-    hdrSub: "Elegant ftour & traditional",
-    topHint: "",
-    pdfBtn: "Download PDF",
-    t1: "Minced Beef or Merguez Set Menu",
-    t2: "Seafood Set Menu",
-    entree: "Starter",
-    salee: "Savory",
-    beldi: "Traditional",
-    boissons: "Drinks",
-    reserveTitle: "Book now",
-    callBtn: "Call 0535940168",
-    waBtn: "Share on WhatsApp",
-    footerTxt: "Grey Corner • Ramadan Kareem",
-    waText: "Grey Corner Ramadan Menu: https://ramadan-greycorner.pages.dev/",
-    items: {
-      // Card 1
-      i1_1:"Harira soup",
-      i1_2:"Dates & egg",
-      i1_3:"Chebakia & almond briouats",
-      i1_4:"Veggie salad",
-      i1_5:"Asian spring roll",
-      i1_6:"Chicken quiche",
-      i1_7:"Mini tuna pizza",
-      i1_8:"Cheese cigar pastry",
-      i1_9:"Mlaoui with cheese & honey",
-      i1_10:"Traditional muffin",
-      i1_11:"Milk",
-      i1_12:"Orange juice",
-      i1_13:"Hot drink",
-      i1_14:"Mineral water",
-      // Card 2
-      i2_1:"Harira soup",
-      i2_2:"Dates & egg",
-      i2_3:"Chebakia & almond briouats",
-      i2_4:"Veggie salad",
-      i2_5:"Asian spring roll",
-      i2_6:"Chicken quiche",
-      i2_7:"Mini tuna pizza",
-      i2_8:"Cheese cigar pastry",
-      i2_9:"Mlaoui with cheese & honey",
-      i2_10:"Traditional muffin",
-      i2_11:"Milk",
-      i2_12:"Orange juice",
-      i2_13:"Hot drink",
-      i2_14:"Mineral water"
+  en:{
+    hdrTitle:"Ramadan Menu",
+    hdrSub:"Elegant ftour & traditional",
+    heroTitle:"Ramadan Menu",
+    heroSub:"Elegant ftour & traditional · Fès",
+    pdfBtn:"Download PDF",
+    t1:"Minced Beef or Merguez Set Menu",
+    t2:"Seafood Set Menu",
+    entree:"Starter",salee:"Savory",beldi:"Traditional",boissons:"Drinks",
+    reserveTitle:"Book now",reserveSub:"Grey Corner · Fès",
+    callLabel:"0535940168",waLabel:"WhatsApp",
+    footerTxt:"Grey Corner · Ramadan Kareem",
+    waText:"Grey Corner Ramadan Menu: https://ramadan-greycorner.pages.dev/",
+    items:{
+      i1_1:"Harira soup",i1_2:"Dates & egg",i1_3:"Chebakia & almond briouats",
+      i1_4:"Veggie salad",i1_5:"Asian spring roll",i1_6:"Chicken quiche",
+      i1_7:"Mini tuna pizza",i1_8:"Cheese cigar pastry",i1_9:"Mlaoui with cheese & honey",
+      i1_10:"Traditional muffin",i1_11:"Milk",i1_12:"Orange juice",
+      i1_13:"Hot drink",i1_14:"Mineral water",
+      i2_1:"Harira soup",i2_2:"Dates & egg",i2_3:"Chebakia & almond briouats",
+      i2_4:"Veggie salad",i2_5:"Asian spring roll",i2_6:"Chicken quiche",
+      i2_7:"Mini tuna pizza",i2_8:"Cheese cigar pastry",i2_9:"Mlaoui with cheese & honey",
+      i2_10:"Traditional muffin",i2_11:"Milk",i2_12:"Orange juice",
+      i2_13:"Hot drink",i2_14:"Mineral water"
     }
   }
 };
 
-const ids = (arr) => arr.map(id => document.getElementById(id)).filter(Boolean);
+/* ─── Helper ───────────────────────── */
+function setText(id, val){ const el=document.getElementById(id); if(el) el.textContent=val; }
 
+/* ─── Apply language ───────────────── */
 function applyLang(lang){
   const t = I18N[lang] || I18N.fr;
   document.documentElement.lang = lang;
 
-  // Header + top + CTA + footer
-  document.getElementById("hdrTitle").textContent = t.hdrTitle;
-  document.getElementById("hdrSub").textContent   = t.hdrSub;
-  document.getElementById("topHint").textContent  = t.topHint;
-  document.getElementById("pdfBtn").textContent   = t.pdfBtn;
-  document.getElementById("reserveTitle").textContent = t.reserveTitle;
-  document.getElementById("callBtn").textContent  = t.callBtn;
-  document.getElementById("waBtn").textContent    = t.waBtn;
-  document.getElementById("footerTxt").textContent= t.footerTxt;
+  // Texts
+  setText("hdrTitle", t.hdrTitle);
+  setText("hdrSub", t.hdrSub);
+  setText("heroTitle", t.heroTitle);
+  setText("heroSub", t.heroSub);
+  setText("pdfBtn", t.pdfBtn);
+  setText("t1", t.t1);
+  setText("t2", t.t2);
+  setText("reserveTitle", t.reserveTitle);
+  setText("reserveSub", t.reserveSub);
+  setText("callLabel", t.callLabel);
+  setText("waLabel", t.waLabel);
+  // footer assembled in JS to preserve <span class="dot">
+  document.getElementById("footerTxt").textContent = t.footerTxt;
 
-  // Titles
-  document.getElementById("t1").textContent = t.t1;
-  document.getElementById("t2").textContent = t.t2;
-
-  // Section labels (both cards)
-  ids(["secEntree1","secEntree2"]).forEach(el => el.textContent = t.entree);
-  ids(["secSalee1","secSalee2"]).forEach(el => el.textContent = t.salee);
-  ids(["secBeldi1","secBeldi2"]).forEach(el => el.textContent = t.beldi);
-  ids(["secBoissons1","secBoissons2"]).forEach(el => el.textContent = t.boissons);
+  // Section labels
+  ["secEntree1","secEntree2"].forEach(id=>setText(id, t.entree));
+  ["secSalee1","secSalee2"].forEach(id=>setText(id, t.salee));
+  ["secBeldi1","secBeldi2"].forEach(id=>setText(id, t.beldi));
+  ["secBoissons1","secBoissons2"].forEach(id=>setText(id, t.boissons));
 
   // Items
-  Object.entries(t.items).forEach(([id, val])=>{
-    const el = document.getElementById(id);
-    if(el) el.textContent = val;
-  });
+  Object.entries(t.items).forEach(([id,val])=>setText(id,val));
 
-  // WhatsApp message
-  const wa = document.getElementById("waBtn");
-  wa.href = "https://wa.me/?text=" + encodeURIComponent(t.waText);
+  // WhatsApp — ✅ bug fix: use wa.me with encoded text
+  const waUrl = "https://wa.me/?text=" + encodeURIComponent(t.waText);
+  document.getElementById("waBtn").href = waUrl;
 
-  // Active buttons
-  document.getElementById("btnFR").classList.toggle("active", lang==="fr");
-  document.getElementById("btnEN").classList.toggle("active", lang==="en");
+  // Button states
+  const btnFR = document.getElementById("btnFR");
+  const btnEN = document.getElementById("btnEN");
+  btnFR.classList.toggle("active", lang==="fr");
+  btnFR.setAttribute("aria-pressed", lang==="fr");
+  btnEN.classList.toggle("active", lang==="en");
+  btnEN.setAttribute("aria-pressed", lang==="en");
 
-  // Persist
+  // ✅ Persist to localStorage
   try{ localStorage.setItem("gc_lang", lang); }catch(e){}
 }
 
-// Language buttons
-document.getElementById("btnFR").addEventListener("click", ()=>applyLang("fr"));
-document.getElementById("btnEN").addEventListener("click", ()=>applyLang("en"));
+// ─── Lang buttons ──────────────────
+document.getElementById("btnFR").addEventListener("click",()=>applyLang("fr"));
+document.getElementById("btnEN").addEventListener("click",()=>applyLang("en"));
 
-// Init language (saved > browser)
-let startLang = "fr";
-try{
-  const saved = localStorage.getItem("gc_lang");
-  if(saved) startLang = saved;
-  else if((navigator.language||"").toLowerCase().startsWith("en")) startLang = "en";
-}catch(e){}
-applyLang(startLang);
+// ─── Init language ─────────────────
+(function(){
+  let lang = "fr";
+  try{
+    const saved = localStorage.getItem("gc_lang");
+    if(saved && I18N[saved]) lang = saved;
+    else if((navigator.language||"").toLowerCase().startsWith("en")) lang = "en";
+  }catch(e){}
+  applyLang(lang);
+})();
 
-// Zoom image
-const modal=document.getElementById('imgModal');
-const modalImg=modal.querySelector('img');
-document.querySelectorAll('.zoomable').forEach(img=>{
- img.addEventListener('click',()=>{
-   modal.style.display='flex';
-   modalImg.src=img.src;
- });
+/* ─── Image modal ──────────────────
+   ✅ Bug fix: properly bind to .zoomable images
+   ✅ Fix: close on overlay click & ESC key
+────────────────────────────────────── */
+const modal    = document.getElementById("imgModal");
+const modalImg = modal.querySelector("img");
+const modalClose = document.getElementById("modalClose");
+
+function openModal(src, alt){
+  modalImg.src = src;
+  modalImg.alt = alt || "";
+  modal.classList.add("open");
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function closeModal(){
+  modal.classList.remove("open");
+  modal.style.display = "none";
+  document.body.style.overflow = "";
+  // Clear src after transition to avoid flash
+  setTimeout(()=>{ modalImg.src=""; }, 300);
+}
+
+// ✅ Delegate: works even if DOM updates later
+document.addEventListener("click", e=>{
+  if(e.target.classList.contains("zoomable")){
+    openModal(e.target.src, e.target.alt);
+  }
 });
-modal.addEventListener('click',()=>modal.style.display='none');
-</script>
+modal.addEventListener("click", e=>{
+  // Close when clicking the backdrop (not the image)
+  if(e.target === modal) closeModal();
+});
+modalClose.addEventListener("click", closeModal);
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
 
+/* ─── Scroll reveal ─────────────────
+   ✅ IntersectionObserver for .card and .fade-up
+────────────────────────────────────── */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.08});
+
+document.querySelectorAll(".card, .fade-up").forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>
